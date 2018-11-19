@@ -6,7 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DevExpress.XtraTreeList;
+using DevExpress;
+using DevExpress.XtraCharts;
 
 namespace PostRig
 {
@@ -14,7 +15,11 @@ namespace PostRig
     {
         public Document Doc { get; set; }
 
-        
+        private bool ResponseToICNeedsToRecalculate = true;
+        private bool HarmonicInputNeedsToRecalculate = true;
+        private bool ResponseToHarmonicInputNeedsToRecalculate = true;
+        private bool CombinedResponseNeedsToRecalculate = true;
+
 
         public PostRigForm()
         {
@@ -51,7 +56,7 @@ namespace PostRig
             this.DesignRibbonPage.Visible = true;
             this.SimulationSetupRibbonPage.Visible = true;
             this.ResultsRibbonPage.Visible = true;
-            this.PropertiesPanel.Visible = true;
+            this.DesignPropertiesPanel.Visible = true;
         }
 
         private void OpenMenuBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -74,7 +79,7 @@ namespace PostRig
                 this.DesignRibbonPage.Visible = true;
                 this.SimulationSetupRibbonPage.Visible = true;
                 this.ResultsRibbonPage.Visible = true;
-                this.PropertiesPanel.Visible = true;
+                this.DesignPropertiesPanel.Visible = true;
             }
         }
 
@@ -149,6 +154,14 @@ namespace PostRig
             CombinedIPBarCheckItem.Checked = false;
             SimSetupPanel.Visible = true;
             SimSetupPanel.BringToFront();
+
+            if (InitialConditionBarCheckItem.Checked)
+            {
+                SimValuesTreeListColumn.TreeList.Nodes[2].Collapse();
+                SimValuesTreeListColumn.TreeList.Nodes[2].Visible = false;
+                SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
+            }
         }
 
         private void HarmonicIPBarCheckItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -157,6 +170,14 @@ namespace PostRig
             HarmonicIPBarCheckItem.Checked = true;
             CombinedIPBarCheckItem.Checked = false;
             SimSetupPanel.Visible = true;
+
+            if (HarmonicIPBarCheckItem.Checked)
+            {
+                SimValuesTreeListColumn.TreeList.Nodes[1].Collapse();
+                SimValuesTreeListColumn.TreeList.Nodes[1].Visible = false;
+                SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+            }
         }
 
         private void CombinedIPBarCheckItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -165,11 +186,75 @@ namespace PostRig
             HarmonicIPBarCheckItem.Checked = true;
             CombinedIPBarCheckItem.Checked = true;
             SimSetupPanel.Visible = true;
+
+            if (CombinedIPBarCheckItem.Checked)
+            {
+                SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
+                SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+            }
         }
 
         private void RunBarButton_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             Doc.Input.Calculate();
+            GraphPanel.Visible = true;
+            //GraphPanel.Dock = DockStyle.Left;
+            HarmonicInputChartControl.Dock = DockStyle.Fill;
+
+            HarmonicInputChartControl.Series.Clear();
+
+            Series HarmonicIP = new Series("Harmonic Input",ViewType.Spline);
+
+
+            for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
+            {
+                HarmonicIP.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.InputForceOscillations[i]));
+            }
+
+
+            HarmonicInputChartControl.Series.Add(HarmonicIP);
+            //HarmonicIP.ArgumentScaleType = ScaleType.Numerical;
+
+
+
+        }
+
+        private void ShowDesignPanelBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            DesignPropertiesPanel.Visible = true;
+        }
+
+        private void HideDesignPanelBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            DesignPropertiesPanel.Visible = false;
+        }
+
+        private void ShowSimSetupPanelBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SimSetupPanel.Visible = true;
+        }
+
+        private void HideSimSetupBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SimSetupPanel.Visible = false;
+        }
+
+        private void SimSetupTreeList_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+            Doc.Input.InputForce = (double)e.Node.GetValue(SimValuesTreeListColumn);
+            
+        }
+
+        private void ShowGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            GraphPanel.Visible = true;
+        }
+
+        private void HideGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            GraphPanel.Visible = false;
         }
     }
 }

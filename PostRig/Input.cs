@@ -42,7 +42,7 @@ namespace Input
             VehicleMass = 1.0;
             SpringStiffness = 1.0;
             DampingCoefficient = 1.0;
-            InitialDisplacement = 1.0;
+            InitialDisplacement = 0.005;
             InitialVelocity = 0.0;
 
 
