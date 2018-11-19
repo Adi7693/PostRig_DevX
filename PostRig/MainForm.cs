@@ -15,10 +15,10 @@ namespace PostRig
     {
         public Document Doc { get; set; }
 
-        private bool ResponseToICNeedsToRecalculate = true;
-        private bool HarmonicInputNeedsToRecalculate = true;
-        private bool ResponseToHarmonicInputNeedsToRecalculate = true;
-        private bool CombinedResponseNeedsToRecalculate = true;
+        private bool ResponseToICNeedsToPlot = true;
+        private bool HarmonicInputNeedsToPlot = true;
+        private bool ResponseToHarmonicInputNeedsToPlot = true;
+        private bool TotalResponseNeedsToPlot = true;
 
 
         public PostRigForm()
@@ -43,7 +43,7 @@ namespace PostRig
 
                 SimValuesTreeListColumn.TreeList.Nodes[1].Nodes[0].SetValue(SimValuesTreeListColumn, Doc.Input.InitialDisplacement);
                 SimValuesTreeListColumn.TreeList.Nodes[1].Nodes[1].SetValue(SimValuesTreeListColumn, Doc.Input.InitialVelocity);
-                
+
                 SimValuesTreeListColumn.TreeList.Nodes[2].Nodes[0].SetValue(SimValuesTreeListColumn, Doc.Input.ExcitationFrequencyHz);
                 SimValuesTreeListColumn.TreeList.Nodes[2].Nodes[1].SetValue(SimValuesTreeListColumn, Doc.Input.InputForce);
             }
@@ -123,6 +123,18 @@ namespace PostRig
             }
         }
 
+        private void PropertiesTreeList_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+            object a = ValuesTreeListColumn.TreeList.Nodes[0].GetValue(ValuesTreeListColumn);
+            object b = ValuesTreeListColumn.TreeList.Nodes[1].GetValue(ValuesTreeListColumn);
+            object c = ValuesTreeListColumn.TreeList.Nodes[2].GetValue(ValuesTreeListColumn);
+        }
+
+        private void SimSetupTreeList_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+
+        }
+
         private void RoadCarBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             Doc.Input.VehicleMass = 1600; // kg
@@ -147,13 +159,20 @@ namespace PostRig
             UpdateUIFromDocument();
         }
 
+        private void RunBarButton_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Doc.Input.Calculate();
+            HarmonicInputNeedsToPlot = true;
+            MessageBox.Show("Run Complete", "Simulation", MessageBoxButtons.OK);
+        }
+
         private void InitialConditionBarCheckItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             InitialConditionBarCheckItem.Checked = true;
             HarmonicIPBarCheckItem.Checked = false;
             CombinedIPBarCheckItem.Checked = false;
             SimSetupPanel.Visible = true;
-            SimSetupPanel.BringToFront();
+            //SimSetupPanel.BringToFront();
 
             if (InitialConditionBarCheckItem.Checked)
             {
@@ -161,6 +180,10 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = false;
                 SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
+                ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                ResponseToICNeedsToPlot = true;
             }
         }
 
@@ -177,6 +200,10 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = false;
                 SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+                ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                HarmonicInputNeedsToPlot = true;
             }
         }
 
@@ -193,32 +220,11 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
                 SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+                ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                TotalResponseNeedsToPlot = true;
             }
-        }
-
-        private void RunBarButton_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            Doc.Input.Calculate();
-            GraphPanel.Visible = true;
-            //GraphPanel.Dock = DockStyle.Left;
-            HarmonicInputChartControl.Dock = DockStyle.Fill;
-
-            HarmonicInputChartControl.Series.Clear();
-
-            Series HarmonicIP = new Series("Harmonic Input",ViewType.Spline);
-
-
-            for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
-            {
-                HarmonicIP.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.InputForceOscillations[i]));
-            }
-
-
-            HarmonicInputChartControl.Series.Add(HarmonicIP);
-            //HarmonicIP.ArgumentScaleType = ScaleType.Numerical;
-
-
-
         }
 
         private void ShowDesignPanelBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -241,12 +247,6 @@ namespace PostRig
             SimSetupPanel.Visible = false;
         }
 
-        private void SimSetupTreeList_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
-        {
-            Doc.Input.InputForce = (double)e.Node.GetValue(SimValuesTreeListColumn);
-            
-        }
-
         private void ShowGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             GraphPanel.Visible = true;
@@ -255,6 +255,114 @@ namespace PostRig
         private void HideGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             GraphPanel.Visible = false;
+        }
+
+        private void HarmonicInputPlotBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SimSetupPanel.Visible = false;
+            GraphPanel.Visible = true;
+            HarmonicInputChartControl.Visible = true;
+            ResponseToICChartControl.Visible = false;
+            ResponseToHarmonicIPChartControl.Visible = false;
+            TotalResponseChartControl.Visible = false;
+
+            if (HarmonicInputNeedsToPlot)
+            {
+                HarmonicInputChartControl.Dock = DockStyle.Fill;
+
+                HarmonicInputChartControl.Series.Clear();
+
+                Series HarmonicIP = new Series("Force", ViewType.Spline);
+
+                for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
+                {
+                    HarmonicIP.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.InputForceOscillations[i]));
+                }
+
+                HarmonicInputChartControl.Series.Add(HarmonicIP);
+                HarmonicInputNeedsToPlot = false;
+            }
+        }
+
+        private void ResponseToICBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SimSetupPanel.Visible = false;
+            GraphPanel.Visible = true;
+            HarmonicInputChartControl.Visible = false;
+            ResponseToICChartControl.Visible = true;
+            ResponseToHarmonicIPChartControl.Visible = false;
+            TotalResponseChartControl.Visible = false;
+
+            if (ResponseToICNeedsToPlot)
+            {
+                ResponseToICChartControl.Dock = DockStyle.Fill;
+
+                ResponseToICChartControl.Series.Clear();
+
+                Series ICResponse = new Series("Displacement", ViewType.Spline);
+
+                for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
+                {
+                    ICResponse.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.ResponseToInitialConditions[i]));
+                }
+
+                ResponseToICChartControl.Series.Add(ICResponse);
+                ResponseToICNeedsToPlot = false;
+            }
+        }
+
+        private void ResponseToHarmonicBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SimSetupPanel.Visible = false;
+            GraphPanel.Visible = true;
+            HarmonicInputChartControl.Visible = false;
+            ResponseToICChartControl.Visible = false;
+            ResponseToHarmonicIPChartControl.Visible = true;
+            TotalResponseChartControl.Visible = false;
+
+            if (ResponseToHarmonicInputNeedsToPlot)
+            {
+                ResponseToHarmonicIPChartControl.Dock = DockStyle.Fill;
+
+                ResponseToHarmonicIPChartControl.Series.Clear();
+
+                Series HarmonicIPResponse = new Series("Displacement", ViewType.Spline);
+
+                for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
+                {
+                    HarmonicIPResponse.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.ResponseToHarmonicInput[i]));
+                }
+
+                ResponseToHarmonicIPChartControl.Series.Add(HarmonicIPResponse);
+                ResponseToHarmonicInputNeedsToPlot = false;
+            }
+ 
+        }
+        private void CombinedResponseBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SimSetupPanel.Visible = false;
+            GraphPanel.Visible = true;
+            HarmonicInputChartControl.Visible = false;
+            ResponseToICChartControl.Visible = false;
+            ResponseToHarmonicIPChartControl.Visible = false;
+            TotalResponseChartControl.Visible = true;
+
+            if (TotalResponseNeedsToPlot)
+            {
+                TotalResponseChartControl.Dock = DockStyle.Fill;
+
+                TotalResponseChartControl.Series.Clear();
+
+                Series TotalResponse = new Series("Displacement", ViewType.Spline);
+
+                for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
+                {
+                    TotalResponse.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.TotalResponse[i]));
+                }
+
+                TotalResponseChartControl.Series.Add(TotalResponse);
+                TotalResponseNeedsToPlot = false;
+            }
         }
     }
 }

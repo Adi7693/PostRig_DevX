@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PostRigForm));
+            DevExpress.XtraCharts.ChartTitle chartTitle9 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle10 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle11 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle12 = new DevExpress.XtraCharts.ChartTitle();
             this.MainRibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.RoadCarBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.TouringCarBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
@@ -51,6 +55,9 @@
             this.HideSimSetupBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.ShowGraphPanelBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.HideGraphPanelBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
+            this.ResponseToICBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
+            this.ResponseToHarmonicBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
+            this.CombinedResponseBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.DesignRibbonPage = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.CarTemplateDesignPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ShowHideDesignPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -60,6 +67,7 @@
             this.ShowHideSimSetupPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ResultsRibbonPage = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.SysCharacteristicsResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ResponsePlotsResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ShowHideResultsPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.DesignPropertiesPanel = new DevExpress.XtraEditors.PanelControl();
             this.PropertiesTreeList = new DevExpress.XtraTreeList.TreeList();
@@ -75,6 +83,11 @@
             this.GraphPanel = new DevExpress.XtraEditors.PanelControl();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.WorkingEnvironmentPanel = new DevExpress.XtraEditors.PanelControl();
+            this.ResponseToICChartControl = new DevExpress.XtraCharts.ChartControl();
+            this.ResponseToHarmonicIPChartControl = new DevExpress.XtraCharts.ChartControl();
+            this.TotalResponseChartControl = new DevExpress.XtraCharts.ChartControl();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.HarmonicInputPlotBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.MainRibbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DesignPropertiesPanel)).BeginInit();
             this.DesignPropertiesPanel.SuspendLayout();
@@ -88,6 +101,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkingEnvironmentPanel)).BeginInit();
             this.WorkingEnvironmentPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ResponseToICChartControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResponseToHarmonicIPChartControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalResponseChartControl)).BeginInit();
             this.SuspendLayout();
             // 
             // MainRibbonControl
@@ -115,9 +131,13 @@
             this.ShowSimSetupPanelBarButtonItem,
             this.HideSimSetupBarButtonItem,
             this.ShowGraphPanelBarButtonItem,
-            this.HideGraphPanelBarButtonItem});
+            this.HideGraphPanelBarButtonItem,
+            this.ResponseToICBarButtonItem,
+            this.ResponseToHarmonicBarButtonItem,
+            this.CombinedResponseBarButtonItem,
+            this.HarmonicInputPlotBarButtonItem});
             this.MainRibbonControl.Location = new System.Drawing.Point(0, 0);
-            this.MainRibbonControl.MaxItemId = 37;
+            this.MainRibbonControl.MaxItemId = 41;
             this.MainRibbonControl.Name = "MainRibbonControl";
             this.MainRibbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.DesignRibbonPage,
@@ -301,6 +321,36 @@
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.HideGraphPanelBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.HideGraphPanelBarButtonItem_ItemClick);
             // 
+            // ResponseToICBarButtonItem
+            // 
+            this.ResponseToICBarButtonItem.Caption = "Response To Initial Condition";
+            this.ResponseToICBarButtonItem.Id = 37;
+            this.ResponseToICBarButtonItem.Name = "ResponseToICBarButtonItem";
+            this.ResponseToICBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.ResponseToICBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.ResponseToICBarButtonItem_ItemClick);
+            // 
+            // ResponseToHarmonicBarButtonItem
+            // 
+            this.ResponseToHarmonicBarButtonItem.Caption = "Response To Harmonic Input";
+            this.ResponseToHarmonicBarButtonItem.Id = 38;
+            this.ResponseToHarmonicBarButtonItem.Name = "ResponseToHarmonicBarButtonItem";
+            this.ResponseToHarmonicBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.ResponseToHarmonicBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.ResponseToHarmonicBarButtonItem_ItemClick);
+            // 
+            // CombinedResponseBarButtonItem
+            // 
+            this.CombinedResponseBarButtonItem.Caption = "Combined Response";
+            this.CombinedResponseBarButtonItem.Id = 39;
+            this.CombinedResponseBarButtonItem.Name = "CombinedResponseBarButtonItem";
+            this.CombinedResponseBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.CombinedResponseBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.CombinedResponseBarButtonItem_ItemClick);
+            // 
             // DesignRibbonPage
             // 
             this.DesignRibbonPage.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -330,6 +380,7 @@
             this.SimulationSetupRibbonPage.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.InputSimSetupGroup,
             this.RunSimSetupGroup,
+            this.ribbonPageGroup1,
             this.ShowHideSimSetupPageGroup});
             this.SimulationSetupRibbonPage.Name = "SimulationSetupRibbonPage";
             this.SimulationSetupRibbonPage.Text = "Simulation Setup";
@@ -360,6 +411,7 @@
             // 
             this.ResultsRibbonPage.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.SysCharacteristicsResultsGroup,
+            this.ResponsePlotsResultsGroup,
             this.ShowHideResultsPageGroup});
             this.ResultsRibbonPage.Name = "ResultsRibbonPage";
             this.ResultsRibbonPage.Text = "Results";
@@ -370,6 +422,14 @@
             this.SysCharacteristicsResultsGroup.ItemLinks.Add(this.SysCharateristicsBarButtonItem);
             this.SysCharacteristicsResultsGroup.Name = "SysCharacteristicsResultsGroup";
             this.SysCharacteristicsResultsGroup.Text = "System";
+            // 
+            // ResponsePlotsResultsGroup
+            // 
+            this.ResponsePlotsResultsGroup.ItemLinks.Add(this.ResponseToICBarButtonItem);
+            this.ResponsePlotsResultsGroup.ItemLinks.Add(this.ResponseToHarmonicBarButtonItem);
+            this.ResponsePlotsResultsGroup.ItemLinks.Add(this.CombinedResponseBarButtonItem);
+            this.ResponsePlotsResultsGroup.Name = "ResponsePlotsResultsGroup";
+            this.ResponsePlotsResultsGroup.Text = "Response Plots";
             // 
             // ShowHideResultsPageGroup
             // 
@@ -417,6 +477,7 @@
             this.PropertiesTreeList.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFocus;
             this.PropertiesTreeList.Size = new System.Drawing.Size(340, 293);
             this.PropertiesTreeList.TabIndex = 0;
+            this.PropertiesTreeList.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.PropertiesTreeList_FocusedNodeChanged);
             // 
             // VehicleParametersTreeListColumn
             // 
@@ -587,14 +648,21 @@
             // HarmonicInputChartControl
             // 
             this.HarmonicInputChartControl.Legend.Name = "Default Legend";
-            this.HarmonicInputChartControl.Location = new System.Drawing.Point(0, 181);
+            this.HarmonicInputChartControl.Location = new System.Drawing.Point(5, 5);
             this.HarmonicInputChartControl.Name = "HarmonicInputChartControl";
             this.HarmonicInputChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.HarmonicInputChartControl.Size = new System.Drawing.Size(491, 232);
+            this.HarmonicInputChartControl.Size = new System.Drawing.Size(301, 138);
             this.HarmonicInputChartControl.TabIndex = 5;
+            chartTitle9.Text = "Harmonic Input";
+            this.HarmonicInputChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle9});
+            this.HarmonicInputChartControl.Visible = false;
             // 
             // GraphPanel
             // 
+            this.GraphPanel.Controls.Add(this.TotalResponseChartControl);
+            this.GraphPanel.Controls.Add(this.ResponseToHarmonicIPChartControl);
+            this.GraphPanel.Controls.Add(this.ResponseToICChartControl);
             this.GraphPanel.Controls.Add(this.HarmonicInputChartControl);
             this.GraphPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GraphPanel.Location = new System.Drawing.Point(702, 2);
@@ -613,6 +681,60 @@
             this.WorkingEnvironmentPanel.Name = "WorkingEnvironmentPanel";
             this.WorkingEnvironmentPanel.Size = new System.Drawing.Size(1200, 676);
             this.WorkingEnvironmentPanel.TabIndex = 7;
+            // 
+            // ResponseToICChartControl
+            // 
+            this.ResponseToICChartControl.Legend.Name = "Default Legend";
+            this.ResponseToICChartControl.Location = new System.Drawing.Point(6, 147);
+            this.ResponseToICChartControl.Name = "ResponseToICChartControl";
+            this.ResponseToICChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.ResponseToICChartControl.Size = new System.Drawing.Size(300, 158);
+            this.ResponseToICChartControl.TabIndex = 6;
+            chartTitle10.Text = "Response To Initial Conitions";
+            this.ResponseToICChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle10});
+            this.ResponseToICChartControl.Visible = false;
+            // 
+            // ResponseToHarmonicIPChartControl
+            // 
+            this.ResponseToHarmonicIPChartControl.Legend.Name = "Default Legend";
+            this.ResponseToHarmonicIPChartControl.Location = new System.Drawing.Point(5, 313);
+            this.ResponseToHarmonicIPChartControl.Name = "ResponseToHarmonicIPChartControl";
+            this.ResponseToHarmonicIPChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.ResponseToHarmonicIPChartControl.Size = new System.Drawing.Size(300, 139);
+            this.ResponseToHarmonicIPChartControl.TabIndex = 7;
+            chartTitle11.Text = "Response To Harmonic Input";
+            this.ResponseToHarmonicIPChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle11});
+            this.ResponseToHarmonicIPChartControl.Visible = false;
+            // 
+            // TotalResponseChartControl
+            // 
+            this.TotalResponseChartControl.Legend.Name = "Default Legend";
+            this.TotalResponseChartControl.Location = new System.Drawing.Point(6, 458);
+            this.TotalResponseChartControl.Name = "TotalResponseChartControl";
+            this.TotalResponseChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.TotalResponseChartControl.Size = new System.Drawing.Size(299, 190);
+            this.TotalResponseChartControl.TabIndex = 8;
+            chartTitle12.Text = "Total Response";
+            this.TotalResponseChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle12});
+            this.TotalResponseChartControl.Visible = false;
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.HarmonicInputPlotBarButtonItem);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "Input Signal Plot";
+            // 
+            // HarmonicInputPlotBarButtonItem
+            // 
+            this.HarmonicInputPlotBarButtonItem.Caption = "Harmonic Input";
+            this.HarmonicInputPlotBarButtonItem.Id = 40;
+            this.HarmonicInputPlotBarButtonItem.Name = "HarmonicInputPlotBarButtonItem";
+            this.HarmonicInputPlotBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.HarmonicInputPlotBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.HarmonicInputPlotBarButtonItem_ItemClick);
             // 
             // PostRigForm
             // 
@@ -637,6 +759,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkingEnvironmentPanel)).EndInit();
             this.WorkingEnvironmentPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ResponseToICChartControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResponseToHarmonicIPChartControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalResponseChartControl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -689,6 +814,15 @@
         private DevExpress.XtraBars.BarButtonItem ShowGraphPanelBarButtonItem;
         private DevExpress.XtraBars.BarButtonItem HideGraphPanelBarButtonItem;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ShowHideResultsPageGroup;
+        private DevExpress.XtraBars.BarButtonItem ResponseToICBarButtonItem;
+        private DevExpress.XtraBars.BarButtonItem ResponseToHarmonicBarButtonItem;
+        private DevExpress.XtraBars.BarButtonItem CombinedResponseBarButtonItem;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ResponsePlotsResultsGroup;
+        private DevExpress.XtraCharts.ChartControl ResponseToHarmonicIPChartControl;
+        private DevExpress.XtraCharts.ChartControl ResponseToICChartControl;
+        private DevExpress.XtraCharts.ChartControl TotalResponseChartControl;
+        private DevExpress.XtraBars.BarButtonItem HarmonicInputPlotBarButtonItem;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
     }
 }
 
