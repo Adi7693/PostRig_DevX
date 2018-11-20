@@ -12,6 +12,9 @@ namespace Input
         private bool FrequencyNeedsToRecalculate;
         private bool ForceNeedsToRecalculate;
         private bool VehicleDataNeedsToRecalculate;
+        private bool ResponseToICNeedsToRecalculate;
+        private bool ResponseToHarmonicIPNeedsToRecalculate;
+        private bool TotalResponseNeedsToRecalculate;
 
 
         //private double _tTime = 0.0;
@@ -31,6 +34,9 @@ namespace Input
             FrequencyNeedsToRecalculate = false;
             ForceNeedsToRecalculate = false;
             VehicleDataNeedsToRecalculate = false;
+            ResponseToICNeedsToRecalculate = false;
+            ResponseToHarmonicIPNeedsToRecalculate = false;
+            TotalResponseNeedsToRecalculate = false;
 
             StartTime = 0.0;
             EndTime = 5.0;
@@ -179,6 +185,8 @@ namespace Input
                 {
                     _excitationFrequencyHz = value;
                     FrequencyNeedsToRecalculate = true;
+                    ResponseToHarmonicIPNeedsToRecalculate = true;
+                    TotalResponseNeedsToRecalculate = true;
                 }
             }
         }
@@ -199,7 +207,8 @@ namespace Input
                 if (!value.Equals(initialDisplacement))
                 {
                     initialDisplacement = value;
-                    VehicleDataNeedsToRecalculate = true;
+                    ResponseToICNeedsToRecalculate = true;
+                    TotalResponseNeedsToRecalculate = true;
                 }
             }
         }
@@ -221,7 +230,8 @@ namespace Input
                 if (!value.Equals(initialVelocity))
                 {
                     initialVelocity = value;
-                    VehicleDataNeedsToRecalculate = true;
+                    ResponseToICNeedsToRecalculate = true;
+                    TotalResponseNeedsToRecalculate = true;
                 }
             }
         }
@@ -242,6 +252,8 @@ namespace Input
                 {
                     _force = value;
                     ForceNeedsToRecalculate = true;
+                    ResponseToHarmonicIPNeedsToRecalculate = true;
+                    TotalResponseNeedsToRecalculate = true;
                 }
             }
         }
@@ -266,6 +278,9 @@ namespace Input
                     {
                         _vehicleMass = value;
                         VehicleDataNeedsToRecalculate = true;
+                        ResponseToICNeedsToRecalculate=true;
+                        ResponseToHarmonicIPNeedsToRecalculate=true;
+                        TotalResponseNeedsToRecalculate=true;
                     }
                 }
             }
@@ -287,6 +302,9 @@ namespace Input
                 {
                     _springStiffness = value;
                     VehicleDataNeedsToRecalculate = true;
+                    ResponseToICNeedsToRecalculate = true;
+                    ResponseToHarmonicIPNeedsToRecalculate = true;
+                    TotalResponseNeedsToRecalculate = true;
                 }
 
             }
@@ -308,6 +326,9 @@ namespace Input
                 {
                     _dampingCoefficient = value;
                     VehicleDataNeedsToRecalculate = true;
+                    ResponseToICNeedsToRecalculate = true;
+                    ResponseToHarmonicIPNeedsToRecalculate = true;
+                    TotalResponseNeedsToRecalculate = true;
                 }
             }
 
@@ -453,8 +474,6 @@ namespace Input
                 //_tTime = (DateTime.Now - time).TotalMilliseconds;
 
                 TimeNeedsToRecalculate = false;
-
-                FrequencyNeedsToRecalculate = true;
             }
         }
 
@@ -488,7 +507,7 @@ namespace Input
 
                 }
 
-                //_tStepInput = (DateTime.Now - time).TotalMilliseconds;
+                StepInputNeedsToRecalculate = false;
             }
         }
 
@@ -553,14 +572,12 @@ namespace Input
                 //_tHarmonicForce = (DateTime.Now - time).TotalMilliseconds;
 
                 ForceNeedsToRecalculate = false;
-
-                VehicleDataNeedsToRecalculate = true;
             }
         }
 
         private void ResponseToHarmonicIPCalculate()
         {
-            if (VehicleDataNeedsToRecalculate)
+            if (ResponseToHarmonicIPNeedsToRecalculate)
             {
                 if (ResponseToHarmonicInput == null)
                 {
@@ -576,8 +593,8 @@ namespace Input
                 {
                     foreach (double item in TimeIntervals)
                     {
-                        double x = 0.0 * item;
-                        ResponseToHarmonicInput.Add(x);
+                        
+                        ResponseToHarmonicInput.Add(0.0);
                     }
 
                 }
@@ -591,79 +608,78 @@ namespace Input
                     }
                 }
                 // _tResponseToHarmonicIP = (DateTime.Now - time).TotalMilliseconds;
-
+                ResponseToHarmonicIPNeedsToRecalculate = false;
 
             }
         }
 
         private void ResponseToInitialConditionsCalculate()
         {
-            if (VehicleDataNeedsToRecalculate)
+            if (ResponseToICNeedsToRecalculate)
             {
                 if (ResponseToInitialConditions == null)
                 {
                     ResponseToInitialConditions = new List<double>();
                 }
-            }
 
-            ResponseToInitialConditions.Clear();
+                ResponseToInitialConditions.Clear();
 
-            // DateTime time = DateTime.Now;
+                // DateTime time = DateTime.Now;
 
-            if (InitialDisplacement == 0.0 && InitialVelocity == 0.0)
-            {
-                foreach (double item in TimeIntervals)
+                if (InitialDisplacement == 0.0 && InitialVelocity == 0.0)
                 {
-                    double x = 0.0 * item;
-                    ResponseToInitialConditions.Add(x);
-
+                    foreach (double item in TimeIntervals)
+                    {
+                        ResponseToInitialConditions.Add(0.0);
+                    }
                 }
 
-            }
-
-            else
-            {
-                foreach (double item in TimeIntervals)
+                else
                 {
-                    if (DampingRatio < 1.0)
+                    foreach (double item in TimeIntervals)
                     {
-                        double C1 = InitialDisplacement;
-                        double C2 = (InitialVelocity + (DampingRatio * NaturalFrequencyRad * InitialDisplacement)) / DampedNaturalFrequency;
-                        //double X = Math.Sqrt(Math.Pow(C1, 2) + Math.Pow(C2, 2));
-                        double Phy = Math.Atan((DampedNaturalFrequency * InitialDisplacement) / (InitialVelocity + (DampingRatio * NaturalFrequencyRad * InitialDisplacement)));
-                        //double X = InitialDisplacement / Math.Sin(Phy);
+                        if (DampingRatio < 1.0)
+                        {
+                            double C1 = InitialDisplacement;
+                            double C2 = (InitialVelocity + (DampingRatio * NaturalFrequencyRad * InitialDisplacement)) / DampedNaturalFrequency;
+                            //double X = Math.Sqrt(Math.Pow(C1, 2) + Math.Pow(C2, 2));
+                            double Phy = Math.Atan((DampedNaturalFrequency * InitialDisplacement) / (InitialVelocity + (DampingRatio * NaturalFrequencyRad * InitialDisplacement)));
+                            //double X = InitialDisplacement / Math.Sin(Phy);
 
-                        double x = Math.Exp(-DampingRatio * NaturalFrequencyRad * item) * ((C1 * Math.Cos(DampedNaturalFrequency * item)) + (C2 * Math.Sin(DampedNaturalFrequency * item)));
-                        //double x = X * Math.Exp(-DampingRatio * NaturalFrequencyRad * item) * Math.Cos((DampedNaturalFrequency * item) - Phy);
-                        ResponseToInitialConditions.Add(x);
+                            double x = Math.Exp(-DampingRatio * NaturalFrequencyRad * item) * ((C1 * Math.Cos(DampedNaturalFrequency * item)) + (C2 * Math.Sin(DampedNaturalFrequency * item)));
+                            //double x = X * Math.Exp(-DampingRatio * NaturalFrequencyRad * item) * Math.Cos((DampedNaturalFrequency * item) - Phy);
+                            ResponseToInitialConditions.Add(x);
+                        }
+
+                        else if (DampingRatio == 1.0)
+                        {
+                            double C1 = InitialDisplacement;
+                            double C2 = InitialVelocity + (NaturalFrequencyRad * InitialDisplacement);
+
+                            double x = (C1 + (C2 * item)) * Math.Exp(-NaturalFrequencyRad * item);
+                            ResponseToInitialConditions.Add(x);
+                        }
+
+                        else if (DampingRatio > 1.0)
+                        {
+                            double C1 = (InitialDisplacement * NaturalFrequencyRad * (DampingRatio + Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) + InitialVelocity) / (2 * NaturalFrequencyRad * Math.Sqrt(Math.Pow(DampingRatio, 2) - 1));
+                            double C2 = (-InitialDisplacement * NaturalFrequencyRad * (DampingRatio - Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) - InitialVelocity) / (2 * NaturalFrequencyRad * Math.Sqrt(Math.Pow(DampingRatio, 2) - 1));
+
+                            double x = (C1 * Math.Exp((-DampingRatio + Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) * NaturalFrequencyRad * item)) + (C2 * Math.Exp((-DampingRatio - Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) * NaturalFrequencyRad * item));
+                            ResponseToInitialConditions.Add(x);
+                        }
+
                     }
-
-                    else if (DampingRatio == 1.0)
-                    {
-                        double C1 = InitialDisplacement;
-                        double C2 = InitialVelocity + (NaturalFrequencyRad * InitialDisplacement);
-
-                        double x = (C1 + (C2 * item)) * Math.Exp(-NaturalFrequencyRad * item);
-                        ResponseToInitialConditions.Add(x);
-                    }
-
-                    else if (DampingRatio > 1.0)
-                    {
-                        double C1 = (InitialDisplacement * NaturalFrequencyRad * (DampingRatio + Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) + InitialVelocity) / (2 * NaturalFrequencyRad * Math.Sqrt(Math.Pow(DampingRatio, 2) - 1));
-                        double C2 = (-InitialDisplacement * NaturalFrequencyRad * (DampingRatio - Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) - InitialVelocity) / (2 * NaturalFrequencyRad * Math.Sqrt(Math.Pow(DampingRatio, 2) - 1));
-
-                        double x = (C1 * Math.Exp((-DampingRatio + Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) * NaturalFrequencyRad * item)) + (C2 * Math.Exp((-DampingRatio - Math.Sqrt(Math.Pow(DampingRatio, 2) - 1)) * NaturalFrequencyRad * item));
-                        ResponseToInitialConditions.Add(x);
-                    }
-
                 }
+
+                ResponseToICNeedsToRecalculate = false;
             }
             //_tResponseToInitialConditions = (DateTime.Now - time).TotalMilliseconds;
         }
 
         private void TotalResponseCalculate()
         {
-            if (VehicleDataNeedsToRecalculate)
+            if (TotalResponseNeedsToRecalculate)
             {
                 if (TotalResponse == null)
                 {
@@ -680,7 +696,7 @@ namespace Input
                 }
 
                 //_tTotalResponse = (DateTime.Now - time).TotalMilliseconds;
-                VehicleDataNeedsToRecalculate = false;
+                TotalResponseNeedsToRecalculate = false;
             }
         }
         public void Calculate()

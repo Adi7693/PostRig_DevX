@@ -49,6 +49,134 @@ namespace PostRig
             }
         }
 
+
+        public void UpdateDocumentFromUI()
+        {
+            if (Doc != null)
+            {
+                string strval = ValuesTreeListColumn.TreeList.Nodes[0].GetValue(ValuesTreeListColumn).ToString();
+
+                double dblval = -1.0;
+
+                bool Error = false;
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.VehicleMass = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = ValuesTreeListColumn.TreeList.Nodes[1].GetValue(ValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.SpringStiffness = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = ValuesTreeListColumn.TreeList.Nodes[2].GetValue(ValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.DampingCoefficient = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[0].Nodes[0].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.StartTime = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[0].Nodes[1].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.TimeStep = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[0].Nodes[2].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.EndTime = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[1].Nodes[0].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.InitialDisplacement = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[1].Nodes[1].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.InitialVelocity = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[2].Nodes[0].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.ExcitationFrequencyHz = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                strval = SimValuesTreeListColumn.TreeList.Nodes[2].Nodes[1].GetValue(SimValuesTreeListColumn).ToString();
+
+                if (double.TryParse(strval, out dblval))
+                {
+                    Doc.Input.InputForce = dblval;
+                }
+                else
+                {
+                    Error = true;
+                }
+
+                if (Error)
+                {
+                    MessageBox.Show("One of the input values was incorrect. Resetting to previous value.");
+
+                    UpdateUIFromDocument();
+                }
+            }
+        }
+
         private void NewMenuBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             Doc = new Document();
@@ -123,18 +251,6 @@ namespace PostRig
             }
         }
 
-        private void PropertiesTreeList_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
-        {
-            object a = ValuesTreeListColumn.TreeList.Nodes[0].GetValue(ValuesTreeListColumn);
-            object b = ValuesTreeListColumn.TreeList.Nodes[1].GetValue(ValuesTreeListColumn);
-            object c = ValuesTreeListColumn.TreeList.Nodes[2].GetValue(ValuesTreeListColumn);
-        }
-
-        private void SimSetupTreeList_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
-        {
-
-        }
-
         private void RoadCarBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             Doc.Input.VehicleMass = 1600; // kg
@@ -161,6 +277,7 @@ namespace PostRig
 
         private void RunBarButton_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            UpdateDocumentFromUI();
             Doc.Input.Calculate();
             HarmonicInputNeedsToPlot = true;
             MessageBox.Show("Run Complete", "Simulation", MessageBoxButtons.OK);
@@ -180,6 +297,7 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = false;
                 SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
+                InputSignalPlotSimSetupGroup.Visible = false;
                 ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
@@ -200,6 +318,7 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = false;
                 SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+                InputSignalPlotSimSetupGroup.Visible = true;
                 ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
@@ -220,6 +339,7 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
                 SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+                InputSignalPlotSimSetupGroup.Visible = true;
                 ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
@@ -280,6 +400,9 @@ namespace PostRig
                 }
 
                 HarmonicInputChartControl.Series.Add(HarmonicIP);
+
+                HarmonicInputChartControl.Update();
+
                 HarmonicInputNeedsToPlot = false;
             }
         }
@@ -307,6 +430,9 @@ namespace PostRig
                 }
 
                 ResponseToICChartControl.Series.Add(ICResponse);
+
+                ResponseToICChartControl.Update();
+
                 ResponseToICNeedsToPlot = false;
             }
         }
@@ -334,6 +460,9 @@ namespace PostRig
                 }
 
                 ResponseToHarmonicIPChartControl.Series.Add(HarmonicIPResponse);
+
+                ResponseToHarmonicIPChartControl.Update();
+
                 ResponseToHarmonicInputNeedsToPlot = false;
             }
  
