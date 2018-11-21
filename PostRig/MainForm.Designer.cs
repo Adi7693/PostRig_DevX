@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PostRigForm));
-            DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
-            DevExpress.XtraCharts.ChartTitle chartTitle2 = new DevExpress.XtraCharts.ChartTitle();
-            DevExpress.XtraCharts.ChartTitle chartTitle3 = new DevExpress.XtraCharts.ChartTitle();
-            DevExpress.XtraCharts.ChartTitle chartTitle4 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle9 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle10 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle11 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle12 = new DevExpress.XtraCharts.ChartTitle();
             this.MainRibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.RoadCarBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.TouringCarBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
@@ -72,6 +72,10 @@
             this.ResponsePlotsResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ShowHideResultsPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.DesignPropertiesPanel = new DevExpress.XtraEditors.PanelControl();
+            this.SysCharactersticsTreelList = new DevExpress.XtraTreeList.TreeList();
+            this.SysCharacteristicsTreeListColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.SysCharValuesTreeListColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.SysCharUnitsTreeListColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.PropertiesTreeList = new DevExpress.XtraTreeList.TreeList();
             this.VehicleParametersTreeListColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.ValuesTreeListColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
@@ -91,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainRibbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DesignPropertiesPanel)).BeginInit();
             this.DesignPropertiesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SysCharactersticsTreelList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PropertiesTreeList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SimSetupPanel)).BeginInit();
             this.SimSetupPanel.SuspendLayout();
@@ -261,6 +266,7 @@
             this.SysCharateristicsBarButtonItem.Name = "SysCharateristicsBarButtonItem";
             this.SysCharateristicsBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.SysCharateristicsBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.SysCharateristicsBarButtonItem_ItemClick);
             // 
             // ResultsShowBarSubItem
             // 
@@ -414,6 +420,7 @@
             this.InputSignalPlotSimSetupGroup.ItemLinks.Add(this.HarmonicInputPlotBarButtonItem);
             this.InputSignalPlotSimSetupGroup.Name = "InputSignalPlotSimSetupGroup";
             this.InputSignalPlotSimSetupGroup.Text = "Input Signal Plot";
+            this.InputSignalPlotSimSetupGroup.Visible = false;
             // 
             // ShowHideSimSetupPageGroup
             // 
@@ -444,7 +451,7 @@
             this.ResponsePlotsResultsGroup.ItemLinks.Add(this.ResponseToHarmonicBarButtonItem);
             this.ResponsePlotsResultsGroup.ItemLinks.Add(this.CombinedResponseBarButtonItem);
             this.ResponsePlotsResultsGroup.Name = "ResponsePlotsResultsGroup";
-            this.ResponsePlotsResultsGroup.Text = "Response Plots";
+            this.ResponsePlotsResultsGroup.Text = "Plots";
             // 
             // ShowHideResultsPageGroup
             // 
@@ -455,6 +462,7 @@
             // 
             // DesignPropertiesPanel
             // 
+            this.DesignPropertiesPanel.Controls.Add(this.SysCharactersticsTreelList);
             this.DesignPropertiesPanel.Controls.Add(this.PropertiesTreeList);
             this.DesignPropertiesPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.DesignPropertiesPanel.Location = new System.Drawing.Point(2, 2);
@@ -462,6 +470,102 @@
             this.DesignPropertiesPanel.Size = new System.Drawing.Size(344, 672);
             this.DesignPropertiesPanel.TabIndex = 1;
             this.DesignPropertiesPanel.Visible = false;
+            // 
+            // SysCharactersticsTreelList
+            // 
+            this.SysCharactersticsTreelList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.SysCharacteristicsTreeListColumn,
+            this.SysCharValuesTreeListColumn,
+            this.SysCharUnitsTreeListColumn});
+            this.SysCharactersticsTreelList.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SysCharactersticsTreelList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.SysCharactersticsTreelList.Location = new System.Drawing.Point(2, 295);
+            this.SysCharactersticsTreelList.Name = "SysCharactersticsTreelList";
+            this.SysCharactersticsTreelList.BeginUnboundLoad();
+            this.SysCharactersticsTreelList.AppendNode(new object[] {
+            "Natural Frequency",
+            null,
+            "Hz"}, -1);
+            this.SysCharactersticsTreelList.AppendNode(new object[] {
+            "Critical Damping",
+            null,
+            "N/(m/s)"}, -1);
+            this.SysCharactersticsTreelList.AppendNode(new object[] {
+            "Damping Ratio",
+            null,
+            null}, -1);
+            this.SysCharactersticsTreelList.AppendNode(new object[] {
+            "Frequency Ratio",
+            null,
+            null}, -1);
+            this.SysCharactersticsTreelList.EndUnboundLoad();
+            this.SysCharactersticsTreelList.OptionsView.AutoWidth = false;
+            this.SysCharactersticsTreelList.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFocus;
+            this.SysCharactersticsTreelList.Size = new System.Drawing.Size(340, 294);
+            this.SysCharactersticsTreelList.TabIndex = 1;
+            this.SysCharactersticsTreelList.Visible = false;
+            // 
+            // SysCharacteristicsTreeListColumn
+            // 
+            this.SysCharacteristicsTreeListColumn.Caption = "System Characteristics";
+            this.SysCharacteristicsTreeListColumn.FieldName = "System Characteristics";
+            this.SysCharacteristicsTreeListColumn.Name = "SysCharacteristicsTreeListColumn";
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowEdit = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowFocus = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowMove = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowSort = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.ShowInCustomizationForm = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.ShowInExpressionEditor = false;
+            this.SysCharacteristicsTreeListColumn.OptionsFilter.AllowAutoFilter = false;
+            this.SysCharacteristicsTreeListColumn.OptionsFilter.AllowFilter = false;
+            this.SysCharacteristicsTreeListColumn.OptionsFilter.ImmediateUpdateAutoFilter = false;
+            this.SysCharacteristicsTreeListColumn.OptionsFilter.ShowEmptyDateFilter = false;
+            this.SysCharacteristicsTreeListColumn.Visible = true;
+            this.SysCharacteristicsTreeListColumn.VisibleIndex = 0;
+            this.SysCharacteristicsTreeListColumn.Width = 158;
+            // 
+            // SysCharValuesTreeListColumn
+            // 
+            this.SysCharValuesTreeListColumn.Caption = "Values";
+            this.SysCharValuesTreeListColumn.FieldName = "Values";
+            this.SysCharValuesTreeListColumn.Name = "SysCharValuesTreeListColumn";
+            this.SysCharValuesTreeListColumn.OptionsColumn.AllowEdit = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.AllowFocus = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.AllowMove = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.AllowSize = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.AllowSort = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.FixedWidth = true;
+            this.SysCharValuesTreeListColumn.OptionsColumn.ReadOnly = true;
+            this.SysCharValuesTreeListColumn.OptionsColumn.ShowInCustomizationForm = false;
+            this.SysCharValuesTreeListColumn.OptionsColumn.ShowInExpressionEditor = false;
+            this.SysCharValuesTreeListColumn.OptionsFilter.AllowAutoFilter = false;
+            this.SysCharValuesTreeListColumn.OptionsFilter.AllowFilter = false;
+            this.SysCharValuesTreeListColumn.OptionsFilter.ImmediateUpdateAutoFilter = false;
+            this.SysCharValuesTreeListColumn.OptionsFilter.ShowEmptyDateFilter = false;
+            this.SysCharValuesTreeListColumn.Visible = true;
+            this.SysCharValuesTreeListColumn.VisibleIndex = 1;
+            // 
+            // SysCharUnitsTreeListColumn
+            // 
+            this.SysCharUnitsTreeListColumn.Caption = "Units";
+            this.SysCharUnitsTreeListColumn.FieldName = "Units";
+            this.SysCharUnitsTreeListColumn.Name = "SysCharUnitsTreeListColumn";
+            this.SysCharUnitsTreeListColumn.OptionsColumn.AllowEdit = false;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.AllowFocus = false;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.AllowMove = false;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.AllowSort = false;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.ReadOnly = true;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.ShowInCustomizationForm = false;
+            this.SysCharUnitsTreeListColumn.OptionsColumn.ShowInExpressionEditor = false;
+            this.SysCharUnitsTreeListColumn.OptionsFilter.AllowAutoFilter = false;
+            this.SysCharUnitsTreeListColumn.OptionsFilter.AllowFilter = false;
+            this.SysCharUnitsTreeListColumn.OptionsFilter.ImmediateUpdateAutoFilter = false;
+            this.SysCharUnitsTreeListColumn.OptionsFilter.ShowEmptyDateFilter = false;
+            this.SysCharUnitsTreeListColumn.Visible = true;
+            this.SysCharUnitsTreeListColumn.VisibleIndex = 2;
             // 
             // PropertiesTreeList
             // 
@@ -618,6 +722,8 @@
             this.SimulationParametersTreeListColumn.Caption = "Simulation Parameters";
             this.SimulationParametersTreeListColumn.FieldName = "Simulation Parameters";
             this.SimulationParametersTreeListColumn.Name = "SimulationParametersTreeListColumn";
+            this.SimulationParametersTreeListColumn.OptionsColumn.AllowEdit = false;
+            this.SimulationParametersTreeListColumn.OptionsColumn.AllowFocus = false;
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowMove = false;
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowSort = false;
@@ -648,6 +754,8 @@
             this.SimulationUnitTreeListColumn.Caption = "Units";
             this.SimulationUnitTreeListColumn.FieldName = "Units";
             this.SimulationUnitTreeListColumn.Name = "SimulationUnitTreeListColumn";
+            this.SimulationUnitTreeListColumn.OptionsColumn.AllowEdit = false;
+            this.SimulationUnitTreeListColumn.OptionsColumn.AllowFocus = false;
             this.SimulationUnitTreeListColumn.OptionsColumn.AllowMove = false;
             this.SimulationUnitTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
             this.SimulationUnitTreeListColumn.OptionsColumn.AllowSort = false;
@@ -666,9 +774,9 @@
             this.HarmonicInputChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.HarmonicInputChartControl.Size = new System.Drawing.Size(301, 138);
             this.HarmonicInputChartControl.TabIndex = 5;
-            chartTitle1.Text = "Harmonic Input";
+            chartTitle9.Text = "Harmonic Input";
             this.HarmonicInputChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle1});
+            chartTitle9});
             this.HarmonicInputChartControl.Visible = false;
             // 
             // GraphPanel
@@ -690,11 +798,11 @@
             this.TotalResponseChartControl.Location = new System.Drawing.Point(6, 458);
             this.TotalResponseChartControl.Name = "TotalResponseChartControl";
             this.TotalResponseChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.TotalResponseChartControl.Size = new System.Drawing.Size(299, 190);
+            this.TotalResponseChartControl.Size = new System.Drawing.Size(299, 187);
             this.TotalResponseChartControl.TabIndex = 8;
-            chartTitle2.Text = "Total Response";
+            chartTitle10.Text = "Total Response";
             this.TotalResponseChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle2});
+            chartTitle10});
             this.TotalResponseChartControl.Visible = false;
             // 
             // ResponseToHarmonicIPChartControl
@@ -705,9 +813,9 @@
             this.ResponseToHarmonicIPChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.ResponseToHarmonicIPChartControl.Size = new System.Drawing.Size(300, 139);
             this.ResponseToHarmonicIPChartControl.TabIndex = 7;
-            chartTitle3.Text = "Response To Harmonic Input";
+            chartTitle11.Text = "Response To Harmonic Input";
             this.ResponseToHarmonicIPChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle3});
+            chartTitle11});
             this.ResponseToHarmonicIPChartControl.Visible = false;
             // 
             // ResponseToICChartControl
@@ -718,9 +826,9 @@
             this.ResponseToICChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.ResponseToICChartControl.Size = new System.Drawing.Size(300, 158);
             this.ResponseToICChartControl.TabIndex = 6;
-            chartTitle4.Text = "Response To Initial Conitions";
+            chartTitle12.Text = "Response To Initial Conitions";
             this.ResponseToICChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle4});
+            chartTitle12});
             this.ResponseToICChartControl.Visible = false;
             // 
             // WorkingEnvironmentPanel
@@ -747,6 +855,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainRibbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DesignPropertiesPanel)).EndInit();
             this.DesignPropertiesPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SysCharactersticsTreelList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PropertiesTreeList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SimSetupPanel)).EndInit();
             this.SimSetupPanel.ResumeLayout(false);
@@ -821,6 +930,10 @@
         private DevExpress.XtraCharts.ChartControl TotalResponseChartControl;
         private DevExpress.XtraBars.BarButtonItem HarmonicInputPlotBarButtonItem;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup InputSignalPlotSimSetupGroup;
+        private DevExpress.XtraTreeList.TreeList SysCharactersticsTreelList;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn SysCharacteristicsTreeListColumn;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn SysCharValuesTreeListColumn;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn SysCharUnitsTreeListColumn;
     }
 }
 

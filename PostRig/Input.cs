@@ -11,10 +11,15 @@ namespace Input
         private bool StepInputNeedsToRecalculate;
         private bool FrequencyNeedsToRecalculate;
         private bool ForceNeedsToRecalculate;
-        private bool VehicleDataNeedsToRecalculate;
-        private bool ResponseToICNeedsToRecalculate;
-        private bool ResponseToHarmonicIPNeedsToRecalculate;
-        private bool TotalResponseNeedsToRecalculate;
+        private bool ResponseNeedsToRecalculate;
+
+        //private bool VehicleDataNeedsToRecalculate;
+        //private bool ResponseToICNeedsToRecalculate;
+        //private bool ResponseToHarmonicIPNeedsToRecalculate;
+        //private bool TotalResponseNeedsToRecalculate;
+
+
+        //private bool InputDataNeedsToRecalculate;
 
 
         //private double _tTime = 0.0;
@@ -33,10 +38,14 @@ namespace Input
             StepInputNeedsToRecalculate = false;
             FrequencyNeedsToRecalculate = false;
             ForceNeedsToRecalculate = false;
-            VehicleDataNeedsToRecalculate = false;
-            ResponseToICNeedsToRecalculate = false;
-            ResponseToHarmonicIPNeedsToRecalculate = false;
-            TotalResponseNeedsToRecalculate = false;
+            ResponseNeedsToRecalculate = false;
+
+            //VehicleDataNeedsToRecalculate = false;
+            //ResponseToICNeedsToRecalculate = false;
+            //ResponseToHarmonicIPNeedsToRecalculate = false;
+            //TotalResponseNeedsToRecalculate = false;
+            //InputDataNeedsToRecalculate = false;
+
 
             StartTime = 0.0;
             EndTime = 5.0;
@@ -76,6 +85,9 @@ namespace Input
                 {
                     _startTime = value;
                     TimeNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //ResponseNeedsToRecalculate = true;
                     //StepInputNeedsToRecalculate = true;
                 }
             }
@@ -94,6 +106,9 @@ namespace Input
                 {
                     _timeStep = value;
                     TimeNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //ResponseNeedsToRecalculate = true;
                     //StepInputNeedsToRecalculate = true;
                 }
             }
@@ -116,7 +131,11 @@ namespace Input
                     {
                         _endTime = value;
                         TimeNeedsToRecalculate = true;
+
+                        //InputDataNeedsToRecalculate = true;
+                        //ResponseNeedsToRecalculate = true;
                         //StepInputNeedsToRecalculate = true;
+
                     }
                 }
 
@@ -145,6 +164,10 @@ namespace Input
                     {
                         stepAmplitudeChangeTime = value;
                         StepInputNeedsToRecalculate = true;
+
+                        //InputDataNeedsToRecalculate = true;
+                        //ResponseNeedsToRecalculate = true;
+
                     }
                 }
             }
@@ -165,6 +188,10 @@ namespace Input
                 {
                     stepAmplitude = value;
                     StepInputNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //ResponseNeedsToRecalculate = true;
+
                 }
             }
         }
@@ -185,8 +212,12 @@ namespace Input
                 {
                     _excitationFrequencyHz = value;
                     FrequencyNeedsToRecalculate = true;
-                    ResponseToHarmonicIPNeedsToRecalculate = true;
-                    TotalResponseNeedsToRecalculate = true;
+                    ResponseNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //ResponseNeedsToRecalculate = true;
+                    //ResponseToHarmonicIPNeedsToRecalculate = true;
+                    //TotalResponseNeedsToRecalculate = true;
                 }
             }
         }
@@ -207,8 +238,13 @@ namespace Input
                 if (!value.Equals(initialDisplacement))
                 {
                     initialDisplacement = value;
-                    ResponseToICNeedsToRecalculate = true;
-                    TotalResponseNeedsToRecalculate = true;
+                    ResponseNeedsToRecalculate = true;
+
+                    //ResponseToICNeedsToRecalculate = true;
+                    //TotalResponseNeedsToRecalculate = true;
+                    //InputDataNeedsToRecalculate = true;
+
+
                 }
             }
         }
@@ -230,8 +266,11 @@ namespace Input
                 if (!value.Equals(initialVelocity))
                 {
                     initialVelocity = value;
-                    ResponseToICNeedsToRecalculate = true;
-                    TotalResponseNeedsToRecalculate = true;
+                    ResponseNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //ResponseToICNeedsToRecalculate = true;
+                    //TotalResponseNeedsToRecalculate = true;
                 }
             }
         }
@@ -251,9 +290,12 @@ namespace Input
                 if (!value.Equals(_force))
                 {
                     _force = value;
-                    ForceNeedsToRecalculate = true;
-                    ResponseToHarmonicIPNeedsToRecalculate = true;
-                    TotalResponseNeedsToRecalculate = true;
+                    ResponseNeedsToRecalculate = true;
+
+                    //ForceNeedsToRecalculate = true;
+                    //ResponseToHarmonicIPNeedsToRecalculate = true;
+                    //TotalResponseNeedsToRecalculate = true;
+                    //InputDataNeedsToRecalculate = true;
                 }
             }
         }
@@ -277,10 +319,13 @@ namespace Input
                     if (value > 0)
                     {
                         _vehicleMass = value;
-                        VehicleDataNeedsToRecalculate = true;
-                        ResponseToICNeedsToRecalculate=true;
-                        ResponseToHarmonicIPNeedsToRecalculate=true;
-                        TotalResponseNeedsToRecalculate=true;
+                        ResponseNeedsToRecalculate = true;
+
+                        //InputDataNeedsToRecalculate = true;
+                        //VehicleDataNeedsToRecalculate = true;
+                        //ResponseToICNeedsToRecalculate=true;
+                        //ResponseToHarmonicIPNeedsToRecalculate=true;
+                        //TotalResponseNeedsToRecalculate=true;
                     }
                 }
             }
@@ -301,10 +346,13 @@ namespace Input
                 if (!value.Equals(_springStiffness))
                 {
                     _springStiffness = value;
-                    VehicleDataNeedsToRecalculate = true;
-                    ResponseToICNeedsToRecalculate = true;
-                    ResponseToHarmonicIPNeedsToRecalculate = true;
-                    TotalResponseNeedsToRecalculate = true;
+                    ResponseNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //VehicleDataNeedsToRecalculate = true;
+                    //ResponseToICNeedsToRecalculate = true;
+                    //ResponseToHarmonicIPNeedsToRecalculate = true;
+                    //TotalResponseNeedsToRecalculate = true;
                 }
 
             }
@@ -325,10 +373,13 @@ namespace Input
                 if (!value.Equals(_dampingCoefficient))
                 {
                     _dampingCoefficient = value;
-                    VehicleDataNeedsToRecalculate = true;
-                    ResponseToICNeedsToRecalculate = true;
-                    ResponseToHarmonicIPNeedsToRecalculate = true;
-                    TotalResponseNeedsToRecalculate = true;
+                    ResponseNeedsToRecalculate = true;
+
+                    //InputDataNeedsToRecalculate = true;
+                    //VehicleDataNeedsToRecalculate = true;
+                    //ResponseToICNeedsToRecalculate = true;
+                    //ResponseToHarmonicIPNeedsToRecalculate = true;
+                    //TotalResponseNeedsToRecalculate = true;
                 }
             }
 
@@ -342,6 +393,8 @@ namespace Input
             get
             {
                 return 2.0 * Math.PI * ExcitationFrequencyHz;
+                //double we = 2.0 * Math.PI * ExcitationFrequencyHz;
+                //return Math.Round(we, 4);
             }
 
         }
@@ -352,7 +405,9 @@ namespace Input
         {
             get
             {
-                return Math.Sqrt(SpringStiffness / VehicleMass);
+                //return Math.Sqrt(SpringStiffness / VehicleMass);
+                double wn = Math.Round(Math.Sqrt(SpringStiffness / VehicleMass),3);
+                return wn;
             }
 
         }
@@ -362,7 +417,9 @@ namespace Input
         {
             get
             {
-                return (1.0 / (2.0 * Math.PI)) * Math.Sqrt(SpringStiffness / VehicleMass);
+                //return (1.0 / (2.0 * Math.PI)) * Math.Sqrt(SpringStiffness / VehicleMass);
+                double Fn = Math.Round((1.0 / (2.0 * Math.PI)) * Math.Sqrt(SpringStiffness / VehicleMass),3);
+                return Fn;
             }
         }
 
@@ -371,7 +428,9 @@ namespace Input
         {
             get
             {
-                return 2.0 * Math.Sqrt(VehicleMass * SpringStiffness);
+                //return 2.0 * Math.Sqrt(VehicleMass * SpringStiffness);
+                double Cc = Math.Round(2.0 * Math.Sqrt(VehicleMass * SpringStiffness),3);
+                return Cc;
             }
         }
 
@@ -379,7 +438,9 @@ namespace Input
         {
             get
             {
-                return DampingCoefficient / CriticalDamping;
+                //return DampingCoefficient / CriticalDamping;
+                double Zeta = Math.Round(DampingCoefficient / CriticalDamping,3);
+                return Zeta;
             }
         }
 
@@ -389,7 +450,9 @@ namespace Input
         {
             get
             {
-                return ExcitationFrequencyRad / NaturalFrequencyRad;
+                //return ExcitationFrequencyRad / NaturalFrequencyRad;
+                double Fr = Math.Round(ExcitationFrequencyRad / NaturalFrequencyRad,3);
+                return Fr;
             }
         }
 
@@ -401,6 +464,8 @@ namespace Input
                 double num = -2.0 * DampingRatio * FrequencyRatio;
                 double den = 1.0 - Math.Pow(FrequencyRatio, 2);
                 return Math.Atan(num / den);
+                //double phy = Math.Round(Math.Atan(num / den), 4);
+                //return Phy;
             }
         }
 
@@ -430,7 +495,9 @@ namespace Input
         {
             get
             {
-                return Math.Sqrt(1.0 - Math.Pow(DampingRatio, 2)) * NaturalFrequencyRad;
+                //return Math.Sqrt(1.0 - Math.Pow(DampingRatio, 2)) * NaturalFrequencyRad;
+                double wd= Math.Round(Math.Sqrt(1.0 - Math.Pow(DampingRatio, 2)) * NaturalFrequencyRad,4);
+                return wd;
             }
         }
         #endregion
@@ -577,7 +644,7 @@ namespace Input
 
         private void ResponseToHarmonicIPCalculate()
         {
-            if (ResponseToHarmonicIPNeedsToRecalculate)
+            if (ResponseNeedsToRecalculate)
             {
                 if (ResponseToHarmonicInput == null)
                 {
@@ -593,7 +660,7 @@ namespace Input
                 {
                     foreach (double item in TimeIntervals)
                     {
-                        
+
                         ResponseToHarmonicInput.Add(0.0);
                     }
 
@@ -608,14 +675,14 @@ namespace Input
                     }
                 }
                 // _tResponseToHarmonicIP = (DateTime.Now - time).TotalMilliseconds;
-                ResponseToHarmonicIPNeedsToRecalculate = false;
+
 
             }
         }
 
         private void ResponseToInitialConditionsCalculate()
         {
-            if (ResponseToICNeedsToRecalculate)
+            if (ResponseNeedsToRecalculate)
             {
                 if (ResponseToInitialConditions == null)
                 {
@@ -671,15 +738,13 @@ namespace Input
 
                     }
                 }
-
-                ResponseToICNeedsToRecalculate = false;
             }
             //_tResponseToInitialConditions = (DateTime.Now - time).TotalMilliseconds;
         }
 
         private void TotalResponseCalculate()
         {
-            if (TotalResponseNeedsToRecalculate)
+            if (ResponseNeedsToRecalculate)
             {
                 if (TotalResponse == null)
                 {
@@ -696,7 +761,7 @@ namespace Input
                 }
 
                 //_tTotalResponse = (DateTime.Now - time).TotalMilliseconds;
-                TotalResponseNeedsToRecalculate = false;
+                ResponseNeedsToRecalculate = false;
             }
         }
         public void Calculate()
@@ -725,7 +790,7 @@ namespace Input
         {
             get
             {
-                return TimeNeedsToRecalculate || FrequencyNeedsToRecalculate || ForceNeedsToRecalculate || VehicleDataNeedsToRecalculate;
+                return TimeNeedsToRecalculate || FrequencyNeedsToRecalculate || ForceNeedsToRecalculate;
             }
         }
 
