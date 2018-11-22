@@ -48,8 +48,8 @@ namespace Input
 
 
             StartTime = 0.0;
-            EndTime = 5.0;
-            TimeStep = 0.01;
+            EndTime = 10.0;
+            TimeStep = 0.001;
             StepAmplitudeChangeTime = 0.5;
             StepAmplitude = 1.0;
             ExcitationFrequencyHz = 1.0;
@@ -243,8 +243,6 @@ namespace Input
                     //ResponseToICNeedsToRecalculate = true;
                     //TotalResponseNeedsToRecalculate = true;
                     //InputDataNeedsToRecalculate = true;
-
-
                 }
             }
         }
@@ -406,7 +404,7 @@ namespace Input
             get
             {
                 //return Math.Sqrt(SpringStiffness / VehicleMass);
-                double wn = Math.Round(Math.Sqrt(SpringStiffness / VehicleMass),3);
+                double wn = Math.Round(Math.Sqrt(SpringStiffness / VehicleMass), 3);
                 return wn;
             }
 
@@ -418,7 +416,7 @@ namespace Input
             get
             {
                 //return (1.0 / (2.0 * Math.PI)) * Math.Sqrt(SpringStiffness / VehicleMass);
-                double Fn = Math.Round((1.0 / (2.0 * Math.PI)) * Math.Sqrt(SpringStiffness / VehicleMass),3);
+                double Fn = Math.Round((1.0 / (2.0 * Math.PI)) * Math.Sqrt(SpringStiffness / VehicleMass), 3);
                 return Fn;
             }
         }
@@ -429,7 +427,7 @@ namespace Input
             get
             {
                 //return 2.0 * Math.Sqrt(VehicleMass * SpringStiffness);
-                double Cc = Math.Round(2.0 * Math.Sqrt(VehicleMass * SpringStiffness),3);
+                double Cc = Math.Round(2.0 * Math.Sqrt(VehicleMass * SpringStiffness), 3);
                 return Cc;
             }
         }
@@ -439,7 +437,7 @@ namespace Input
             get
             {
                 //return DampingCoefficient / CriticalDamping;
-                double Zeta = Math.Round(DampingCoefficient / CriticalDamping,3);
+                double Zeta = Math.Round(DampingCoefficient / CriticalDamping, 3);
                 return Zeta;
             }
         }
@@ -451,7 +449,7 @@ namespace Input
             get
             {
                 //return ExcitationFrequencyRad / NaturalFrequencyRad;
-                double Fr = Math.Round(ExcitationFrequencyRad / NaturalFrequencyRad,3);
+                double Fr = Math.Round(ExcitationFrequencyRad / NaturalFrequencyRad, 3);
                 return Fr;
             }
         }
@@ -496,13 +494,14 @@ namespace Input
             get
             {
                 //return Math.Sqrt(1.0 - Math.Pow(DampingRatio, 2)) * NaturalFrequencyRad;
-                double wd= Math.Round(Math.Sqrt(1.0 - Math.Pow(DampingRatio, 2)) * NaturalFrequencyRad,4);
+                double wd = Math.Round(Math.Sqrt(1.0 - Math.Pow(DampingRatio, 2)) * NaturalFrequencyRad, 4);
                 return wd;
             }
         }
         #endregion
 
-        #region Calculation Methods
+        #region Lists of Data
+
         public List<double> TimeIntervals { get; private set; }
 
         public List<double> StepInput { get; private set; }
@@ -517,7 +516,37 @@ namespace Input
 
         public List<double> TotalResponse { get; private set; }
 
-        public List<double> Velocity { get; private set; }
+        public List<double> VelocityICR { get; private set; }
+
+        public List<double> VelocityHR { get; private set; }
+
+        public List<double> VelocityTR { get; private set; }
+
+        public List<double> AccelerationICR { get; private set; }
+
+        public List<double> AccelerationHR { get; private set; }
+
+        public List<double> AccelerationTR { get; private set; }
+
+        public List<double> SpringForceICR { get; private set; }
+
+        public List<double> SpringForceHR { get; private set; }
+
+        public List<double> SpringForceTR { get; private set; }
+
+        public List<double> DamperForceICR { get; private set; }
+
+        public List<double> DamperForceHR { get; private set; }
+
+        public List<double> DamperForceTR { get; private set; }
+
+        public List<double> BodyForceICR { get; private set; }
+
+        public List<double> BodyForceHR { get; private set; }
+
+        public List<double> BodyForceTR { get; private set; }
+
+        #endregion
 
         private void TimeCalculate()
         {
@@ -642,43 +671,7 @@ namespace Input
             }
         }
 
-        private void ResponseToHarmonicIPCalculate()
-        {
-            if (ResponseNeedsToRecalculate)
-            {
-                if (ResponseToHarmonicInput == null)
-                {
-                    ResponseToHarmonicInput = new List<double>();
-                }
-
-                ResponseToHarmonicInput.Clear();
-
-                //DateTime time = DateTime.Now;
-
-
-                if (InputForce == 0.0 || ExcitationFrequencyHz == 0.0)
-                {
-                    foreach (double item in TimeIntervals)
-                    {
-
-                        ResponseToHarmonicInput.Add(0.0);
-                    }
-
-                }
-
-                else
-                {
-                    foreach (double item in TimeIntervals)
-                    {
-                        double xOfTime = StaticDisplacement * TransferFunction * Math.Cos((ExcitationFrequencyRad * item) + Phy);
-                        ResponseToHarmonicInput.Add(xOfTime);
-                    }
-                }
-                // _tResponseToHarmonicIP = (DateTime.Now - time).TotalMilliseconds;
-
-
-            }
-        }
+        #region Response Calculations
 
         private void ResponseToInitialConditionsCalculate()
         {
@@ -742,6 +735,38 @@ namespace Input
             //_tResponseToInitialConditions = (DateTime.Now - time).TotalMilliseconds;
         }
 
+        private void ResponseToHarmonicIPCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (ResponseToHarmonicInput == null)
+                {
+                    ResponseToHarmonicInput = new List<double>();
+                }
+
+                ResponseToHarmonicInput.Clear();
+
+                if (InputForce == 0.0 || ExcitationFrequencyHz == 0.0)
+                {
+                    foreach (double item in TimeIntervals)
+                    {
+
+                        ResponseToHarmonicInput.Add(0.0);
+                    }
+
+                }
+
+                else
+                {
+                    foreach (double item in TimeIntervals)
+                    {
+                        double xOfTime = StaticDisplacement * TransferFunction * Math.Cos((ExcitationFrequencyRad * item) + Phy);
+                        ResponseToHarmonicInput.Add(xOfTime);
+                    }
+                }
+            }
+        }
+
         private void TotalResponseCalculate()
         {
             if (ResponseNeedsToRecalculate)
@@ -761,9 +786,344 @@ namespace Input
                 }
 
                 //_tTotalResponse = (DateTime.Now - time).TotalMilliseconds;
+            }
+        }
+
+        #endregion
+
+        #region Velocity Calculations
+
+        private void VelocityICRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (VelocityICR == null)
+                {
+                    VelocityICR = new List<double>();
+                }
+
+                VelocityICR.Clear();
+
+                VelocityICR.Add(0.0);
+
+                for (int i = 1; i < ResponseToInitialConditions.Count; i++)
+                {
+                    double dsIC = (ResponseToInitialConditions[i - 1] - ResponseToInitialConditions[i]) / TimeStep;
+
+                    VelocityICR.Add(dsIC);
+                }
+
+            }
+        }
+
+        private void VelocityHRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (VelocityHR == null)
+                {
+                    VelocityHR = new List<double>();
+                }
+
+                VelocityHR.Clear();
+
+                VelocityHR.Add(0.0);
+
+                for (int i = 1; i < ResponseToHarmonicInput.Count; i++)
+                {
+                    double dsH = (ResponseToHarmonicInput[i - 1] - ResponseToHarmonicInput[i]) / TimeStep;
+
+                    VelocityHR.Add(dsH);
+
+                }
+            }
+        }
+
+        private void VelocityTRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (VelocityTR == null)
+                {
+                    VelocityTR = new List<double>();
+                }
+
+                VelocityTR.Clear();
+
+                VelocityTR.Add(0.0);
+
+                for (int i = 1; i < TotalResponse.Count; i++)
+                {
+                    double dsT = (TotalResponse[i - 1] - TotalResponse[i]) / TimeStep;
+
+                    VelocityTR.Add(dsT);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Acceleration Calculations
+
+        private void AccelerationICRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (AccelerationICR == null)
+                {
+                    AccelerationICR = new List<double>();
+                }
+
+                AccelerationICR.Clear();
+
+                AccelerationICR.Add(0.0);
+
+                for (int i = 1; i < VelocityICR.Count; i++)
+                {
+                    double dvIC = (VelocityICR[i - 1] - VelocityICR[i]) / TimeStep;
+
+                    AccelerationICR.Add(dvIC);
+                }
+            }
+        }
+
+        private void AccelerationHRCalcuclate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (AccelerationHR == null)
+                {
+                    AccelerationHR = new List<double>();
+                }
+
+                AccelerationHR.Clear();
+
+                AccelerationHR.Add(0.0);
+
+                for (int i = 1; i < VelocityHR.Count; i++)
+                {
+                    double dvH = (VelocityHR[i - 1] - VelocityHR[i]) / TimeStep;
+
+                    AccelerationHR.Add(dvH);
+                }
+            }
+        }
+
+        private void AccelerationTRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (AccelerationTR == null)
+                {
+                    AccelerationTR = new List<double>();
+                }
+
+                AccelerationTR.Clear();
+
+                AccelerationTR.Add(0.0);
+
+                for (int i = 1; i < VelocityTR.Count; i++)
+                {
+                    double dvT = (VelocityTR[i - 1] - VelocityTR[i]) / TimeStep;
+
+                    AccelerationTR.Add(dvT);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Spring Force Calculations
+
+        private void SpringForceICRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (SpringForceICR == null)
+                {
+                    SpringForceICR = new List<double>();
+                }
+
+                SpringForceICR.Clear();
+
+                foreach(double item in ResponseToInitialConditions)
+                {
+                    double SF = SpringStiffness * item;
+
+                    SpringForceICR.Add(SF);
+                }
+            }
+        }
+
+        private void SpringForceHRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (SpringForceHR == null)
+                {
+                    SpringForceHR = new List<double>();
+                }
+
+                SpringForceHR.Clear();
+
+                foreach (double item in ResponseToHarmonicInput)
+                {
+                    double SF = SpringStiffness * item;
+
+                    SpringForceHR.Add(SF);
+                }
+            }
+        }
+
+        private void SpringForceTRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (SpringForceTR == null)
+                {
+                    SpringForceTR = new List<double>();
+                }
+
+                SpringForceTR.Clear();
+
+                foreach(double item in TotalResponse)
+                {
+                    double SF = SpringStiffness * item;
+
+                    SpringForceTR.Add(SF);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Damper Force Calculations
+
+        private void DamperForceICRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (DamperForceICR == null)
+                {
+                    DamperForceICR = new List<double>();
+                }
+
+                DamperForceICR.Clear();
+
+                foreach (double item in VelocityICR)
+                {
+                    double DF = DampingCoefficient * item;
+                    DamperForceICR.Add(DF);
+                }
+            }
+        }
+
+        private void DamperForceHRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (DamperForceHR == null)
+                {
+                    DamperForceHR = new List<double>();
+                }
+
+                DamperForceHR.Clear();
+
+                foreach (double item in VelocityHR)
+                {
+                    double DF = DampingCoefficient * item;
+                    DamperForceHR.Add(DF);
+                }
+            }
+        }
+
+        private void DamperForceTRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (DamperForceTR == null)
+                {
+                    DamperForceTR = new List<double>();
+                }
+
+                DamperForceTR.Clear();
+
+                foreach (double item in VelocityTR)
+                {
+                    double DF = DampingCoefficient * item;
+                    DamperForceTR.Add(DF);
+                }
+            }
+        }
+
+        #endregion
+
+        #region BodyForce
+
+        private void BodyForceICRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (BodyForceICR == null)
+                {
+                    BodyForceICR = new List<double>();
+                }
+
+                BodyForceICR.Clear();
+
+                foreach(double item in AccelerationICR)
+                {
+                    double BF = VehicleMass * item;
+
+                    BodyForceICR.Add(BF);
+                }
+            }
+        }
+
+        private void BodyForceHRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (BodyForceHR == null)
+                {
+                    BodyForceHR = new List<double>();
+                }
+
+                BodyForceHR.Clear();
+
+                foreach(double item in AccelerationHR)
+                {
+                    double BF = VehicleMass * item;
+
+                    BodyForceHR.Add(BF);
+                }
+            }
+        }
+
+        private void BodyForceTRCalculate()
+        {
+            if (ResponseNeedsToRecalculate)
+            {
+                if (BodyForceTR == null)
+                {
+                    BodyForceTR = new List<double>();
+                }
+
+                BodyForceTR.Clear();
+
+                foreach(double item in AccelerationTR)
+                {
+                    double BF = VehicleMass * item;
+
+                    BodyForceTR.Add(BF);
+                }
+
                 ResponseNeedsToRecalculate = false;
             }
         }
+
+#endregion
+
         public void Calculate()
         {
             //_tTime = 0.0;
@@ -778,13 +1138,34 @@ namespace Input
             StepInputCalculate();
             CosineFuntionCalculate();
             HarmonicForceCalculate();
+
             ResponseToInitialConditionsCalculate();
             ResponseToHarmonicIPCalculate();
             TotalResponseCalculate();
 
+            VelocityICRCalculate();
+            VelocityHRCalculate();
+            VelocityTRCalculate();
+
+            AccelerationICRCalculate();
+            AccelerationHRCalcuclate();
+            AccelerationTRCalculate();
+
+            SpringForceICRCalculate();
+            SpringForceHRCalculate();
+            SpringForceTRCalculate();
+
+            DamperForceICRCalculate();
+            DamperForceHRCalculate();
+            DamperForceTRCalculate();
+
+            BodyForceICRCalculate();
+            BodyForceHRCalculate();
+            BodyForceTRCalculate();
+
+
             //return _tTime + _tStepInput + _tCosinTerm + _tHarmonicForce + _tResponseToHarmonicIP + _tResponseToInitialConditions+ _tTotalResponse;
         }
-        #endregion
 
         public bool NeedsToRecalculate
         {
