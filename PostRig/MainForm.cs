@@ -53,13 +53,20 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[2].Nodes[0].SetValue(SimValuesTreeListColumn, Doc.Input.ExcitationFrequencyHz);
                 SimValuesTreeListColumn.TreeList.Nodes[2].Nodes[1].SetValue(SimValuesTreeListColumn, Doc.Input.InputForce);
 
+                
+            }
+        }
+
+        public void UpdateResultsFromDocument()
+        {
+            if (Doc != null)
+            {
                 SysCharValuesTreeListColumn.TreeList.Nodes[0].SetValue(SysCharValuesTreeListColumn, Doc.Input.NaturalFrequencyHz);
                 SysCharValuesTreeListColumn.TreeList.Nodes[1].SetValue(SysCharValuesTreeListColumn, Doc.Input.CriticalDamping);
                 SysCharValuesTreeListColumn.TreeList.Nodes[2].SetValue(SysCharValuesTreeListColumn, Doc.Input.DampingRatio);
                 SysCharValuesTreeListColumn.TreeList.Nodes[3].SetValue(SysCharValuesTreeListColumn, Doc.Input.FrequencyRatio);
             }
         }
-
 
         public void UpdateDocumentFromUI()
         {
@@ -199,8 +206,11 @@ namespace PostRig
             ResultsRibbonPage.Visible = true;
             DesignPropertiesPanel.Visible = true;
 
+            ShowHideResultsPageGroup.Visible = false;
+
             ResponsePlotsResultsGroup.Visible = false;
             ForcePlotResultGroup.Visible = false;
+            AccelerationResultsGroup.Visible = false;
 
         }
 
@@ -270,9 +280,9 @@ namespace PostRig
 
         private void RoadCarBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            Doc.Input.VehicleMass = 1600; // kg
-            Doc.Input.SpringStiffness = 100000; // N/m
-            Doc.Input.DampingCoefficient = 8000; // N/(m/s)
+            Doc.Input.VehicleMass = 400; // kg
+            Doc.Input.SpringStiffness = 80000; // N/m
+            Doc.Input.DampingCoefficient = 4000; // N/(m/s)
 
             PropertiesTreeList.Visible = true;
 
@@ -315,7 +325,7 @@ namespace PostRig
 
         private void TouringCarBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            Doc.Input.VehicleMass = 1000; // kg
+            Doc.Input.VehicleMass = 250; // kg
             Doc.Input.SpringStiffness = 120000; // N/m
             Doc.Input.DampingCoefficient = 8000; // N/(m/s)
 
@@ -359,9 +369,9 @@ namespace PostRig
 
         private void SingleSeaterBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            Doc.Input.VehicleMass = 700; // kg
+            Doc.Input.VehicleMass = 175; // kg
             Doc.Input.SpringStiffness = 150000; // N/m
-            Doc.Input.DampingCoefficient = 15000; // N/(m/s)
+            Doc.Input.DampingCoefficient = 8500; // N/(m/s)
 
             PropertiesTreeList.Visible = true;
 
@@ -406,6 +416,10 @@ namespace PostRig
         {
             UpdateDocumentFromUI();
 
+            //UpdateUIFromDocument();
+
+            UpdateResultsFromDocument();
+
             Doc.Input.Calculate();
 
             MessageBox.Show("Run Complete", "Simulation", MessageBoxButtons.OK);
@@ -414,12 +428,19 @@ namespace PostRig
 
             ResponsePlotsResultsGroup.Visible = true;
             ForcePlotResultGroup.Visible = true;
+            AccelerationResultsGroup.Visible = true;
 
             if (InitialConditionBarCheckItem.Checked)
             {
                 ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+
+                SimValuesTreeListColumn.TreeList.Nodes[2].Collapse();
+                SimValuesTreeListColumn.TreeList.Nodes[2].Visible = false;
+
+                SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
 
                 SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = false;
             }
@@ -430,6 +451,12 @@ namespace PostRig
                 ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
 
+                SimValuesTreeListColumn.TreeList.Nodes[1].Collapse();
+                SimValuesTreeListColumn.TreeList.Nodes[1].Visible = false;
+
+                SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
+
                 SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
             }
 
@@ -438,6 +465,12 @@ namespace PostRig
                 ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+
+                SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
+
+                SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
+                SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
 
                 SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
             }
@@ -577,7 +610,7 @@ namespace PostRig
 
         private void HideGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GraphPanel.Visible = false;
+            SysCharactersticsTreelList.Visible = false;
         }
 
         // Region Below Is Not Used Currently
@@ -942,7 +975,7 @@ namespace PostRig
 
                     for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
                     {
-                        BodyForce.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.BodyForceTR[i]));
+                        BodyForce.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.BodyForceICR[i]));
                     }
 
                     BodyForceChartControl.Series.Add(BodyForce);

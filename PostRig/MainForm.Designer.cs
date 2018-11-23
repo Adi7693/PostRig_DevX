@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PostRigForm));
             DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle2 = new DevExpress.XtraCharts.ChartTitle();
             DevExpress.XtraCharts.ChartTitle chartTitle3 = new DevExpress.XtraCharts.ChartTitle();
             DevExpress.XtraCharts.ChartTitle chartTitle4 = new DevExpress.XtraCharts.ChartTitle();
             DevExpress.XtraCharts.ChartTitle chartTitle5 = new DevExpress.XtraCharts.ChartTitle();
             DevExpress.XtraCharts.ChartTitle chartTitle6 = new DevExpress.XtraCharts.ChartTitle();
             DevExpress.XtraCharts.ChartTitle chartTitle7 = new DevExpress.XtraCharts.ChartTitle();
             DevExpress.XtraCharts.ChartTitle chartTitle8 = new DevExpress.XtraCharts.ChartTitle();
-            DevExpress.XtraCharts.ChartTitle chartTitle2 = new DevExpress.XtraCharts.ChartTitle();
             this.MainRibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.RoadCarBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.TouringCarBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
@@ -65,6 +65,7 @@
             this.DamperForceResultBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.SpringForceResultsBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.BodyForceResultsBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
+            this.BodyAcclnResultsBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.DesignRibbonPage = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.CarTemplateDesignPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ShowHideDesignPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -76,6 +77,7 @@
             this.SysCharacteristicsResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ResponsePlotsResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ForcePlotResultGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.AccelerationResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ShowHideResultsPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.DesignPropertiesPanel = new DevExpress.XtraEditors.PanelControl();
             this.SysCharactersticsTreelList = new DevExpress.XtraTreeList.TreeList();
@@ -93,6 +95,7 @@
             this.SimulationUnitTreeListColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.HarmonicInputChartControl = new DevExpress.XtraCharts.ChartControl();
             this.GraphPanel = new DevExpress.XtraEditors.PanelControl();
+            this.BodyAccelnChartControl = new DevExpress.XtraCharts.ChartControl();
             this.BodyForceChartControl = new DevExpress.XtraCharts.ChartControl();
             this.SpringForceChartControl = new DevExpress.XtraCharts.ChartControl();
             this.DamperForceChartControl = new DevExpress.XtraCharts.ChartControl();
@@ -101,9 +104,6 @@
             this.ResponseToICChartControl = new DevExpress.XtraCharts.ChartControl();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.WorkingEnvironmentPanel = new DevExpress.XtraEditors.PanelControl();
-            this.AccelerationResultsGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.BodyAcclnResultsBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
-            this.BodyAccelnChartControl = new DevExpress.XtraCharts.ChartControl();
             ((System.ComponentModel.ISupportInitialize)(this.MainRibbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DesignPropertiesPanel)).BeginInit();
             this.DesignPropertiesPanel.SuspendLayout();
@@ -115,6 +115,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.HarmonicInputChartControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GraphPanel)).BeginInit();
             this.GraphPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BodyAccelnChartControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BodyForceChartControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpringForceChartControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DamperForceChartControl)).BeginInit();
@@ -124,7 +125,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkingEnvironmentPanel)).BeginInit();
             this.WorkingEnvironmentPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BodyAccelnChartControl)).BeginInit();
             this.SuspendLayout();
             // 
             // MainRibbonControl
@@ -403,6 +403,15 @@
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.BodyForceResultsBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BodyForceResultsBarButtonItem_ItemClick);
             // 
+            // BodyAcclnResultsBarButtonItem
+            // 
+            this.BodyAcclnResultsBarButtonItem.Caption = "Body Acceleration";
+            this.BodyAcclnResultsBarButtonItem.Id = 44;
+            this.BodyAcclnResultsBarButtonItem.Name = "BodyAcclnResultsBarButtonItem";
+            this.BodyAcclnResultsBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.BodyAcclnResultsBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BodyAcclnResultsBarButtonItem_ItemClick);
+            // 
             // DesignRibbonPage
             // 
             this.DesignRibbonPage.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -473,6 +482,7 @@
             // SysCharacteristicsResultsGroup
             // 
             this.SysCharacteristicsResultsGroup.ItemLinks.Add(this.SysCharateristicsBarButtonItem);
+            this.SysCharacteristicsResultsGroup.ItemLinks.Add(this.HideGraphPanelBarButtonItem);
             this.SysCharacteristicsResultsGroup.Name = "SysCharacteristicsResultsGroup";
             this.SysCharacteristicsResultsGroup.Text = "System";
             // 
@@ -492,10 +502,15 @@
             this.ForcePlotResultGroup.Name = "ForcePlotResultGroup";
             this.ForcePlotResultGroup.Text = "Force Plot";
             // 
+            // AccelerationResultsGroup
+            // 
+            this.AccelerationResultsGroup.ItemLinks.Add(this.BodyAcclnResultsBarButtonItem);
+            this.AccelerationResultsGroup.Name = "AccelerationResultsGroup";
+            this.AccelerationResultsGroup.Text = "Acceleration";
+            // 
             // ShowHideResultsPageGroup
             // 
             this.ShowHideResultsPageGroup.ItemLinks.Add(this.ShowGraphPanelBarButtonItem);
-            this.ShowHideResultsPageGroup.ItemLinks.Add(this.HideGraphPanelBarButtonItem);
             this.ShowHideResultsPageGroup.Name = "ShowHideResultsPageGroup";
             this.ShowHideResultsPageGroup.Text = "Show/Hide Panel";
             // 
@@ -618,7 +633,7 @@
             this.PropertiesTreeList.Name = "PropertiesTreeList";
             this.PropertiesTreeList.BeginUnboundLoad();
             this.PropertiesTreeList.AppendNode(new object[] {
-            "Vehicle Mass",
+            "Mass",
             null,
             "Kg"}, -1);
             this.PropertiesTreeList.AppendNode(new object[] {
@@ -705,7 +720,7 @@
             this.SimulationParametersTreeListColumn,
             this.SimValuesTreeListColumn,
             this.SimulationUnitTreeListColumn});
-            this.SimSetupTreeList.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SimSetupTreeList.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.SimSetupTreeList.Dock = System.Windows.Forms.DockStyle.Top;
             this.SimSetupTreeList.Location = new System.Drawing.Point(2, 2);
             this.SimSetupTreeList.Name = "SimSetupTreeList";
@@ -836,6 +851,18 @@
             this.GraphPanel.TabIndex = 5;
             this.GraphPanel.Visible = false;
             // 
+            // BodyAccelnChartControl
+            // 
+            this.BodyAccelnChartControl.Legend.Name = "Default Legend";
+            this.BodyAccelnChartControl.Location = new System.Drawing.Point(313, 459);
+            this.BodyAccelnChartControl.Name = "BodyAccelnChartControl";
+            this.BodyAccelnChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.BodyAccelnChartControl.Size = new System.Drawing.Size(293, 165);
+            this.BodyAccelnChartControl.TabIndex = 12;
+            chartTitle2.Text = "Body Acceleration";
+            this.BodyAccelnChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle2});
+            // 
             // BodyForceChartControl
             // 
             this.BodyForceChartControl.Legend.Name = "Default Legend";
@@ -925,33 +952,6 @@
             this.WorkingEnvironmentPanel.Size = new System.Drawing.Size(1458, 700);
             this.WorkingEnvironmentPanel.TabIndex = 7;
             // 
-            // AccelerationResultsGroup
-            // 
-            this.AccelerationResultsGroup.ItemLinks.Add(this.BodyAcclnResultsBarButtonItem);
-            this.AccelerationResultsGroup.Name = "AccelerationResultsGroup";
-            this.AccelerationResultsGroup.Text = "Acceleration";
-            // 
-            // BodyAcclnResultsBarButtonItem
-            // 
-            this.BodyAcclnResultsBarButtonItem.Caption = "Body Acceleration";
-            this.BodyAcclnResultsBarButtonItem.Id = 44;
-            this.BodyAcclnResultsBarButtonItem.Name = "BodyAcclnResultsBarButtonItem";
-            this.BodyAcclnResultsBarButtonItem.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
-            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
-            this.BodyAcclnResultsBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BodyAcclnResultsBarButtonItem_ItemClick);
-            // 
-            // BodyAccelnChartControl
-            // 
-            this.BodyAccelnChartControl.Legend.Name = "Default Legend";
-            this.BodyAccelnChartControl.Location = new System.Drawing.Point(313, 459);
-            this.BodyAccelnChartControl.Name = "BodyAccelnChartControl";
-            this.BodyAccelnChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.BodyAccelnChartControl.Size = new System.Drawing.Size(293, 165);
-            this.BodyAccelnChartControl.TabIndex = 12;
-            chartTitle2.Text = "Body Acceleration";
-            this.BodyAccelnChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle2});
-            // 
             // PostRigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -973,6 +973,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.HarmonicInputChartControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GraphPanel)).EndInit();
             this.GraphPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BodyAccelnChartControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BodyForceChartControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpringForceChartControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DamperForceChartControl)).EndInit();
@@ -982,7 +983,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkingEnvironmentPanel)).EndInit();
             this.WorkingEnvironmentPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BodyAccelnChartControl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
