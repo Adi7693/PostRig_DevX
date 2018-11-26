@@ -422,8 +422,6 @@ namespace PostRig
 
             Doc.Input.Calculate();
 
-            MessageBox.Show("Run Complete", "Simulation", MessageBoxButtons.OK);
-
             ResponsePlotsResultsGroup.Visible = true;
 
             ResponsePlotsResultsGroup.Visible = true;
@@ -475,6 +473,7 @@ namespace PostRig
                 SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
             }
 
+            MessageBox.Show("Run Complete", "Simulation", MessageBoxButtons.OK);
         }
 
         private void InitialConditionBarCheckItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -494,11 +493,11 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[1].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[1].Visible = true;
 
-                SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = false;
+                //SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = false;
 
-                ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-                ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-                CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                //ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                //ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                //CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
 
                 ResponseToICNeedsToPlot = true;
                 ResponseToHarmonicInputNeedsToPlot = false;
@@ -527,11 +526,11 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
 
-                SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
+                //SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
 
-                ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-                ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-                CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                //ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                //ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                //CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
 
                 ResponseToICNeedsToPlot = false;
                 ResponseToHarmonicInputNeedsToPlot = true;
@@ -560,11 +559,11 @@ namespace PostRig
                 SimValuesTreeListColumn.TreeList.Nodes[2].ExpandAll();
                 SimValuesTreeListColumn.TreeList.Nodes[2].Visible = true;
 
-                SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
+                //SysCharValuesTreeListColumn.TreeList.Nodes[3].Visible = true;
 
-                ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-                ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-                CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                //ResponseToICBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                //ResponseToHarmonicBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                //CombinedResponseBarButtonItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
 
                 ResponseToICNeedsToPlot = true;
                 ResponseToHarmonicInputNeedsToPlot = true;

@@ -633,7 +633,7 @@
             this.PropertiesTreeList.Name = "PropertiesTreeList";
             this.PropertiesTreeList.BeginUnboundLoad();
             this.PropertiesTreeList.AppendNode(new object[] {
-            "Mass",
+            "Corner Weight",
             null,
             "Kg"}, -1);
             this.PropertiesTreeList.AppendNode(new object[] {
@@ -656,8 +656,6 @@
             this.VehicleParametersTreeListColumn.Caption = "Vehicle Parameters";
             this.VehicleParametersTreeListColumn.FieldName = "Vehicle Parameters";
             this.VehicleParametersTreeListColumn.Name = "VehicleParametersTreeListColumn";
-            this.VehicleParametersTreeListColumn.OptionsColumn.AllowEdit = false;
-            this.VehicleParametersTreeListColumn.OptionsColumn.AllowFocus = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.AllowMove = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.AllowSort = false;
@@ -910,7 +908,7 @@
             this.TotalResponseChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.TotalResponseChartControl.Size = new System.Drawing.Size(300, 166);
             this.TotalResponseChartControl.TabIndex = 8;
-            chartTitle6.Text = "Total Response";
+            chartTitle6.Text = "Combined Response";
             this.TotalResponseChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
             chartTitle6});
             this.TotalResponseChartControl.Visible = false;
