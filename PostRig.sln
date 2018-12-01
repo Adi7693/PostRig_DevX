@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostRig", "PostRig\PostRig.csproj", "{49595EB7-B577-4D79-9C40-8F926328B25F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Post Rig", "Publish\Post Rig\Post Rig.vdproj", "{18C769A6-96CA-46D7-982B-2A54CF18E294}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -17,8 +15,6 @@ Global
 		{49595EB7-B577-4D79-9C40-8F926328B25F}.Debug|x64.Build.0 = Debug|x64
 		{49595EB7-B577-4D79-9C40-8F926328B25F}.Release|x64.ActiveCfg = Release|x64
 		{49595EB7-B577-4D79-9C40-8F926328B25F}.Release|x64.Build.0 = Release|x64
-		{18C769A6-96CA-46D7-982B-2A54CF18E294}.Debug|x64.ActiveCfg = Debug
-		{18C769A6-96CA-46D7-982B-2A54CF18E294}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
