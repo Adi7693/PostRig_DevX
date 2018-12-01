@@ -13,6 +13,10 @@ namespace Input
         private bool ForceNeedsToRecalculate;
         private bool ResponseNeedsToRecalculate;
 
+
+
+        //public bool IsNew { get; set; }
+
         //private bool VehicleDataNeedsToRecalculate;
         //private bool ResponseToICNeedsToRecalculate;
         //private bool ResponseToHarmonicIPNeedsToRecalculate;
@@ -1119,6 +1123,7 @@ namespace Input
                 }
 
                 ResponseNeedsToRecalculate = false;
+                //IsNew = true;
             }
         }
 

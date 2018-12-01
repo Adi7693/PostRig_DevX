@@ -161,7 +161,7 @@
             this.BodyForceResultsBarButtonItem,
             this.BodyAcclnResultsBarButtonItem});
             this.MainRibbonControl.Location = new System.Drawing.Point(0, 0);
-            this.MainRibbonControl.MaxItemId = 45;
+            this.MainRibbonControl.MaxItemId = 46;
             this.MainRibbonControl.Name = "MainRibbonControl";
             this.MainRibbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.DesignRibbonPage,
@@ -568,6 +568,7 @@
             this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowFocus = false;
             this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowMove = false;
             this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
+            this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowSize = false;
             this.SysCharacteristicsTreeListColumn.OptionsColumn.AllowSort = false;
             this.SysCharacteristicsTreeListColumn.OptionsColumn.ShowInCustomizationForm = false;
             this.SysCharacteristicsTreeListColumn.OptionsColumn.ShowInExpressionEditor = false;
@@ -656,8 +657,11 @@
             this.VehicleParametersTreeListColumn.Caption = "Vehicle Parameters";
             this.VehicleParametersTreeListColumn.FieldName = "Vehicle Parameters";
             this.VehicleParametersTreeListColumn.Name = "VehicleParametersTreeListColumn";
+            this.VehicleParametersTreeListColumn.OptionsColumn.AllowEdit = false;
+            this.VehicleParametersTreeListColumn.OptionsColumn.AllowFocus = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.AllowMove = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
+            this.VehicleParametersTreeListColumn.OptionsColumn.AllowSize = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.AllowSort = false;
             this.VehicleParametersTreeListColumn.OptionsColumn.ReadOnly = true;
             this.VehicleParametersTreeListColumn.OptionsFilter.AllowAutoFilter = false;
@@ -740,7 +744,7 @@
             null,
             "s"}, 0);
             this.SimSetupTreeList.AppendNode(new object[] {
-            "Initial Conition Data",
+            "Initial Condition Data",
             null,
             null}, -1);
             this.SimSetupTreeList.AppendNode(new object[] {
@@ -778,7 +782,9 @@
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowFocus = false;
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowMove = false;
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
+            this.SimulationParametersTreeListColumn.OptionsColumn.AllowSize = false;
             this.SimulationParametersTreeListColumn.OptionsColumn.AllowSort = false;
+            this.SimulationParametersTreeListColumn.OptionsColumn.FixedWidth = true;
             this.SimulationParametersTreeListColumn.OptionsFilter.AllowAutoFilter = false;
             this.SimulationParametersTreeListColumn.OptionsFilter.AllowFilter = false;
             this.SimulationParametersTreeListColumn.OptionsFilter.ImmediateUpdateAutoFilter = false;
@@ -793,6 +799,7 @@
             this.SimValuesTreeListColumn.FieldName = "Values";
             this.SimValuesTreeListColumn.Name = "SimValuesTreeListColumn";
             this.SimValuesTreeListColumn.OptionsColumn.AllowMove = false;
+            this.SimValuesTreeListColumn.OptionsColumn.AllowMoveToCustomizationForm = false;
             this.SimValuesTreeListColumn.OptionsColumn.AllowSort = false;
             this.SimValuesTreeListColumn.OptionsFilter.AllowAutoFilter = false;
             this.SimValuesTreeListColumn.OptionsFilter.AllowFilter = false;
@@ -934,7 +941,7 @@
             this.ResponseToICChartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.ResponseToICChartControl.Size = new System.Drawing.Size(300, 158);
             this.ResponseToICChartControl.TabIndex = 6;
-            chartTitle8.Text = "Response To Initial Conitions";
+            chartTitle8.Text = "Response To Initial Conditions";
             this.ResponseToICChartControl.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
             chartTitle8});
             this.ResponseToICChartControl.Visible = false;

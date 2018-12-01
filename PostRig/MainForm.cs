@@ -695,13 +695,24 @@ namespace PostRig
 
                 XYDiagram diagram = (XYDiagram)ResponseToICChartControl.Diagram;
 
-                diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
                 diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Alignment = AxisAlignment.Near;
                 diagram.AxisX.Title.Text = "Time (s)";
                 diagram.AxisX.Title.TextColor = Color.Black;
                 diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Alignment = AxisAlignment.Near;
+                diagram.AxisY.Title.Text = "Displacement (m)";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
 
                 ResponseToICChartControl.Update();
 
@@ -742,12 +753,23 @@ namespace PostRig
 
                 XYDiagram diagram = (XYDiagram)ResponseToHarmonicIPChartControl.Diagram;
 
+                //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
                 diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Alignment = AxisAlignment.Near;
                 diagram.AxisX.Title.Text = "Time (s)";
                 diagram.AxisX.Title.TextColor = Color.Black;
                 diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Alignment = AxisAlignment.Near;
+                diagram.AxisY.Title.Text = "Displacement (m)";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                 ResponseToHarmonicIPChartControl.Update();
 
@@ -788,12 +810,24 @@ namespace PostRig
 
                 XYDiagram diagram = (XYDiagram)TotalResponseChartControl.Diagram;
 
+                //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
                 diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Alignment = AxisAlignment.Near;
                 diagram.AxisX.Title.Text = "Time (s)";
                 diagram.AxisX.Title.TextColor = Color.Black;
                 diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+                //diagram.AxisX.Color = Color.Red;
+
+                //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Alignment = AxisAlignment.Near;
+                diagram.AxisY.Title.Text = "Displacement (m)";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                 TotalResponseChartControl.Update();
 
@@ -820,6 +854,8 @@ namespace PostRig
 
             SpringForceChartControl.Dock = DockStyle.Fill;
 
+            
+
             if (SpringForceNeedsToPlot)
             {
                 if (InitialConditionBarCheckItem.Checked)
@@ -834,6 +870,26 @@ namespace PostRig
                     }
 
                     SpringForceChartControl.Series.Add(SpringForce);
+
+                    XYDiagram diagram = (XYDiagram)SpringForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Spring Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     SpringForceChartControl.Update();
                 }
@@ -851,6 +907,26 @@ namespace PostRig
 
                     SpringForceChartControl.Series.Add(SpringForce);
 
+                    XYDiagram diagram = (XYDiagram)SpringForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Spring Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
                     SpringForceChartControl.Update();
                 }
 
@@ -866,6 +942,26 @@ namespace PostRig
                     }
 
                     SpringForceChartControl.Series.Add(SpringForce);
+
+                    XYDiagram diagram = (XYDiagram)SpringForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Spring Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     SpringForceChartControl.Update();
                 }
@@ -894,6 +990,8 @@ namespace PostRig
 
             if (DamperForceNeedsToPlot)
             {
+                
+
                 if (InitialConditionBarCheckItem.Checked)
                 {
                     DamperForceChartControl.Series.Clear();
@@ -906,6 +1004,26 @@ namespace PostRig
                     }
 
                     DamperForceChartControl.Series.Add(DamperForce);
+
+                    XYDiagram diagram = (XYDiagram)DamperForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Damper Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     DamperForceChartControl.Update();
                 }
@@ -923,6 +1041,26 @@ namespace PostRig
 
                     DamperForceChartControl.Series.Add(DamperForce);
 
+                    XYDiagram diagram = (XYDiagram)DamperForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Damper Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
                     DamperForceChartControl.Update();
                 }
 
@@ -938,6 +1076,26 @@ namespace PostRig
                     }
 
                     DamperForceChartControl.Series.Add(DamperForce);
+
+                    XYDiagram diagram = (XYDiagram)DamperForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Damper Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     DamperForceChartControl.Update();
                 }
@@ -966,6 +1124,8 @@ namespace PostRig
 
             if (BodyForceNeedsToPlot)
             {
+                
+
                 if (InitialConditionBarCheckItem.Checked)
                 {
                     BodyForceChartControl.Series.Clear();
@@ -978,6 +1138,26 @@ namespace PostRig
                     }
 
                     BodyForceChartControl.Series.Add(BodyForce);
+
+                    XYDiagram diagram = (XYDiagram)BodyForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Body Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     BodyForceChartControl.Update();
                 }
@@ -995,6 +1175,26 @@ namespace PostRig
 
                     BodyForceChartControl.Series.Add(BodyForce);
 
+                    XYDiagram diagram = (XYDiagram)BodyForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Body Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
                     BodyForceChartControl.Update();
                 }
 
@@ -1010,6 +1210,26 @@ namespace PostRig
                     }
 
                     BodyForceChartControl.Series.Add(BodyForce);
+
+                    XYDiagram diagram = (XYDiagram)BodyForceChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Body Force (N)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     BodyForceChartControl.Update();
                 }
@@ -1038,6 +1258,8 @@ namespace PostRig
 
             if (BodyAccelnNeedsToPlot)
             {
+                
+
                 if (InitialConditionBarCheckItem.Checked)
                 {
                     BodyAccelnChartControl.Series.Clear();
@@ -1050,6 +1272,26 @@ namespace PostRig
                     }
 
                     BodyAccelnChartControl.Series.Add(BodyAcceln);
+
+                    XYDiagram diagram = (XYDiagram)BodyAccelnChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Body Acceleration (m/s^2)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     BodyAccelnChartControl.Update();
                 }
@@ -1067,6 +1309,26 @@ namespace PostRig
 
                     BodyAccelnChartControl.Series.Add(BodyForce);
 
+                    XYDiagram diagram = (XYDiagram)BodyAccelnChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Body Acceleration (m/s^2)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
                     BodyAccelnChartControl.Update();
                 }
 
@@ -1082,6 +1344,26 @@ namespace PostRig
                     }
 
                     BodyAccelnChartControl.Series.Add(BodyForce);
+
+                    XYDiagram diagram = (XYDiagram)BodyAccelnChartControl.Diagram;
+
+                    //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Alignment = AxisAlignment.Near;
+                    diagram.AxisX.Title.Text = "Time (s)";
+                    diagram.AxisX.Title.TextColor = Color.Black;
+                    diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+                    //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+                    diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Alignment = AxisAlignment.Near;
+                    diagram.AxisY.Title.Text = "Body Acceleration (m/s^2)";
+                    diagram.AxisY.Title.TextColor = Color.Black;
+                    diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                    diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
 
                     BodyAccelnChartControl.Update();
                 }
