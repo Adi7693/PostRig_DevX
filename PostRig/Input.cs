@@ -22,9 +22,7 @@ namespace Input
         //private bool ResponseToHarmonicIPNeedsToRecalculate;
         //private bool TotalResponseNeedsToRecalculate;
 
-
         //private bool InputDataNeedsToRecalculate;
-
 
         //private double _tTime = 0.0;
         //private double _tCosinTerm = 0.0;

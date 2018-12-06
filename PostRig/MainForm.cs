@@ -31,8 +31,6 @@ namespace PostRig
 
             PropertiesTreeList.ExpandAll();
             SimSetupTreeList.ExpandAll();
-
-
         }
 
         public void UpdateUIFromDocument()
@@ -204,7 +202,9 @@ namespace PostRig
             DesignRibbonPage.Visible = true;
             SimulationSetupRibbonPage.Visible = true;
             ResultsRibbonPage.Visible = true;
+
             DesignPropertiesPanel.Visible = true;
+            ResultsPanel.Visible = true;
 
             ShowHideResultsPageGroup.Visible = false;
 
@@ -234,7 +234,9 @@ namespace PostRig
                 DesignRibbonPage.Visible = true;
                 SimulationSetupRibbonPage.Visible = true;
                 ResultsRibbonPage.Visible = true;
+
                 DesignPropertiesPanel.Visible = true;
+                ResultsPanel.Visible = true;
             }
         }
 
@@ -482,6 +484,12 @@ namespace PostRig
             HarmonicIPBarCheckItem.Checked = false;
             CombinedIPBarCheckItem.Checked = false;
 
+            ICImagePanel.Visible = true;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
+
+            ICImagePanel.Dock = DockStyle.Fill;
+
             SimSetupPanel.Visible = true;
             //SimSetupPanel.BringToFront();
 
@@ -516,7 +524,14 @@ namespace PostRig
             InitialConditionBarCheckItem.Checked = false;
             HarmonicIPBarCheckItem.Checked = true;
             CombinedIPBarCheckItem.Checked = false;
+
             SimSetupPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = true;
+            CIPImagePanel.Visible = false;
+
+            HIPImagePanel.Dock = DockStyle.Fill;
 
             if (HarmonicIPBarCheckItem.Checked)
             {
@@ -549,7 +564,14 @@ namespace PostRig
             InitialConditionBarCheckItem.Checked = true;
             HarmonicIPBarCheckItem.Checked = true;
             CombinedIPBarCheckItem.Checked = true;
+
             SimSetupPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = true;
+
+            CIPImagePanel.Dock = DockStyle.Fill;
 
             if (CombinedIPBarCheckItem.Checked)
             {
@@ -595,16 +617,38 @@ namespace PostRig
         private void ShowSimSetupPanelBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = true;
+
+            if (InitialConditionBarCheckItem.Checked)
+            {
+                ICImagePanel.Visible = true;
+                ICImagePanel.Dock = DockStyle.Fill;
+            }
+
+            else if (HarmonicIPBarCheckItem.Checked)
+            {
+                HIPImagePanel.Visible = true;
+                HIPImagePanel.Dock = DockStyle.Fill;
+            }
+
+            else if (CombinedIPBarCheckItem.Checked)
+            {
+                CIPImagePanel.Visible = true;
+                CIPImagePanel.Dock = DockStyle.Fill;
+            }
         }
 
         private void HideSimSetupBarButtonItem_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
         }
 
         private void ShowGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
         }
 
         private void HideGraphPanelBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -665,7 +709,11 @@ namespace PostRig
         private void ResponseToICBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
@@ -723,7 +771,11 @@ namespace PostRig
         private void ResponseToHarmonicBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
@@ -780,7 +832,11 @@ namespace PostRig
         private void CombinedResponseBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
@@ -839,7 +895,11 @@ namespace PostRig
         private void SpringForceResultsBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
@@ -973,7 +1033,11 @@ namespace PostRig
         private void DamperForceResultBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
@@ -991,7 +1055,6 @@ namespace PostRig
             if (DamperForceNeedsToPlot)
             {
                 
-
                 if (InitialConditionBarCheckItem.Checked)
                 {
                     DamperForceChartControl.Series.Clear();
@@ -1107,7 +1170,11 @@ namespace PostRig
         private void BodyForceResultsBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
@@ -1241,7 +1308,11 @@ namespace PostRig
         private void BodyAcclnResultsBarButtonItem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SimSetupPanel.Visible = false;
-            GraphPanel.Visible = true;
+            ResultsPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
 
             HarmonicInputChartControl.Visible = false;
 
