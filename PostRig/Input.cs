@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Windows.Forms;
+using System.Data;
 using System.Collections.Generic;
+using ExcelDataReader;
 using System.IO;
 using MathNet.Numerics;
 
@@ -386,6 +389,8 @@ namespace Input
         }
         #endregion
 
+
+
         #region Derived Properties
         // In rad/s
         public double ExcitationFrequencyRad
@@ -504,11 +509,13 @@ namespace Input
 
         #region Lists of Data
 
-        public List<double> TimeIntervals { get; private set; }
+        public List<double> TimeIntervals { get; set; }
 
         public List<double> StepInput { get; private set; }
 
         public List<double> CosineOscillation { get; private set; }
+
+        public List<double> CustomInput { get; set; }
 
         public List<double> InputForceOscillations { get; private set; }
 

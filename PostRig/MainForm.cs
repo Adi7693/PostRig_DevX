@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Drawing;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using ExcelDataReader;
+using System.IO;
 using System.Windows.Forms;
-using DevExpress;
 using DevExpress.XtraCharts;
 
 namespace PostRig
@@ -710,6 +706,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -725,6 +722,8 @@ namespace PostRig
             DamperForceChartControl.Visible = false;
             BodyForceChartControl.Visible = false;
             BodyAccelnChartControl.Visible = false;
+
+            CustomIPChartControl.Visible = false;
 
             if (ResponseToICNeedsToPlot)
             {
@@ -772,6 +771,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -787,6 +787,8 @@ namespace PostRig
             DamperForceChartControl.Visible = false;
             BodyForceChartControl.Visible = false;
             BodyAccelnChartControl.Visible = false;
+
+            CustomIPChartControl.Visible = false;
 
             if (ResponseToHarmonicInputNeedsToPlot)
             {
@@ -833,6 +835,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -848,6 +851,8 @@ namespace PostRig
             DamperForceChartControl.Visible = false;
             BodyForceChartControl.Visible = false;
             BodyAccelnChartControl.Visible = false;
+
+            CustomIPChartControl.Visible = false;
 
             if (TotalResponseNeedsToPlot)
             {
@@ -896,6 +901,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -911,6 +917,8 @@ namespace PostRig
             DamperForceChartControl.Visible = false;
             BodyForceChartControl.Visible = false;
             BodyAccelnChartControl.Visible = false;
+
+            CustomIPChartControl.Visible = false;
 
             SpringForceChartControl.Dock = DockStyle.Fill;
 
@@ -1034,6 +1042,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -1049,6 +1058,8 @@ namespace PostRig
             DamperForceChartControl.Visible = true;
             BodyForceChartControl.Visible = false;
             BodyAccelnChartControl.Visible = false;
+
+            CustomIPChartControl.Visible = false;
 
             DamperForceChartControl.Dock = DockStyle.Fill;
 
@@ -1171,6 +1182,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -1186,6 +1198,8 @@ namespace PostRig
             DamperForceChartControl.Visible = false;
             BodyForceChartControl.Visible = true;
             BodyAccelnChartControl.Visible = false;
+
+            CustomIPChartControl.Visible = false;
 
             BodyForceChartControl.Dock = DockStyle.Fill;
 
@@ -1309,6 +1323,7 @@ namespace PostRig
         {
             SimSetupPanel.Visible = false;
             ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = false;
 
             ICImagePanel.Visible = false;
             HIPImagePanel.Visible = false;
@@ -1324,6 +1339,8 @@ namespace PostRig
             DamperForceChartControl.Visible = false;
             BodyForceChartControl.Visible = false;
             BodyAccelnChartControl.Visible = true;
+
+            CustomIPChartControl.Visible = false;
 
             BodyAccelnChartControl.Dock = DockStyle.Fill;
 
@@ -1441,6 +1458,79 @@ namespace PostRig
 
                 BodyAccelnNeedsToPlot = false;
             }
+        }
+
+        private void CustomIPBarButton_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //Read Excel File for custom Road Input
+            
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV Files(*.csv)| *.csv", ValidateNames = true })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    Doc.CustomInputExcelRead(ofd.FileName);
+                }
+            }
+
+            CustomIPDataGridView.DataSource = Doc.CustomIPDataSet;
+
+            SimSetupPanel.Visible = false;
+            ResultsPanel.Visible = true;
+            CustomIPDataGridPanel.Visible = true;
+
+            ICImagePanel.Visible = false;
+            HIPImagePanel.Visible = false;
+            CIPImagePanel.Visible = false;
+            
+            HarmonicInputChartControl.Visible = false;
+
+            ResponseToICChartControl.Visible = false;
+            ResponseToHarmonicIPChartControl.Visible = false;
+            TotalResponseChartControl.Visible = false;
+
+            SpringForceChartControl.Visible = false;
+            DamperForceChartControl.Visible = false;
+            BodyForceChartControl.Visible = false;
+            BodyAccelnChartControl.Visible = true;
+
+            CustomIPChartControl.Visible = true;
+
+            CustomIPChartControl.Dock = DockStyle.Fill;
+
+            CustomIPChartControl.Series.Clear();
+
+            Series CustomIP = new Series("Displacement", ViewType.Spline);
+
+            for (int i = 0; i < Doc.Input.TimeIntervals.Count; i++)
+            {
+                CustomIP.Points.Add(new SeriesPoint(Doc.Input.TimeIntervals[i], Doc.Input.CustomInput[i]));
+            }
+
+            CustomIPChartControl.Series.Add(CustomIP);
+
+            XYDiagram diagram = (XYDiagram)CustomIPChartControl.Diagram;
+
+            //diagram.AxisX.WholeRange.MinValue = Doc.Input.StartTime;
+            diagram.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            diagram.AxisX.Alignment = AxisAlignment.Near;
+            diagram.AxisX.Title.Text = "Time (s)";
+            diagram.AxisX.Title.TextColor = Color.Black;
+            diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+            diagram.AxisX.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+            //diagram.AxisY.WholeRange.MinValue = Doc.Input.StartTime;
+            diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            diagram.AxisY.Alignment = AxisAlignment.Near;
+            diagram.AxisY.Title.Text = "Displacement (m)";
+            diagram.AxisY.Title.TextColor = Color.Black;
+            diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+            diagram.AxisY.Title.Font = new Font("Tahoma", 14, FontStyle.Bold);
+
+            CustomIPChartControl.Update();            
+
+
         }
     }
 }
